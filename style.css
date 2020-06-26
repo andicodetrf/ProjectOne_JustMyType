@@ -1,3 +1,53 @@
 *{
     box-sizing: border-box;
 }
+
+body{
+    background: rgb(47,79,79);
+    color: white;
+}
+
+.main-container{
+    background-color: darkcyan;
+    width: 80%;
+    /* height: 1000px; */
+    text-align: center;
+    margin: 0 auto;
+    /* padding: 30em 1em; */
+
+}
+
+
+.input-box{
+    margin: 10px 0;
+    padding: 10px 10px;
+    width: 300px;
+    font-size: 20px;
+    border-radius: 5px;
+    background-color: lightgrey;
+}
+
+.timer-block, .current-score-block, .total-score-block{
+    display: flex;
+    justify-content: center;
+}
+
+.timer-block h2, .current-score-block h2, .total-score-block h2{
+    padding: 0 8px;
+}
+
+.btn-init{
+    padding: 8px 15px;
+    font-size: 20px;
+    margin: 20px 0 20px 0;
+    border-radius: 5px;
+    background-color: darkgreen;
+}
+
+.btn-init:hover{
+    padding:10px 17px;
+
+}
+
+
+
