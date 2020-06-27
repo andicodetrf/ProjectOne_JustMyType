@@ -9,9 +9,10 @@ let usedArray = [];
 let currentScore = 0;
 let totalScore = 0;
 let currentWord = "";
-let totalSecs = 10;
+let totalSecs = 5;
 let startInterval;
 let highScore = 0;
+let round = 0;
 
 //-------------------DOM SELECTORS----------------------------
 let wordDisplay = document.querySelector('.word-display');
@@ -43,11 +44,11 @@ const gameInProgress = () => {
 }
 
 const gameToStartBtn = () => {
+    buttonInit.textContent = 'Play again'
     buttonInit.style.backgroundColor = "darkgreen";
     buttonInit.style.color = "white";
     buttonInit.disabled = false;
-    totalSecs = 10;
-    timerDisplay.textContent = totalSecs;
+    totalSecs = 5;
 }
 
 
@@ -58,16 +59,10 @@ const generateWord = () => {
     roundArray.splice(rand , 1);
     usedArray.push(randWord);
  
-    wordDisplay.textContent = randWord;
     currentWord = randWord;
-    console.log('WD: ', wordDisplay)
+    wordDisplay.textContent = randWord;
+    
 }
-
-//testing fn
-// const logInput = () =>{
-//     console.log(inputBox.value);
-//     console.log(wordDisplay.textContent)
-// }
 
 
 const clearInputBox = () =>{
@@ -76,44 +71,51 @@ const clearInputBox = () =>{
 
 
 //FN-to check if word match & update current score
-const checkInputMatch = () =>{
+const checkInputMatch = () => {
+    console.log("CHECK INPUT MATCH GAME START: ", isGameStart)
+    console.log('CHECK INPUT MATCH IN-VAL: ', inputBox.value)
+    console.log('CHECK INPUT MATCH CURRENT WORD ', currentWord)
     if(isGameStart){
         if(inputBox.value === wordDisplay.textContent){
             currentScore++
             currentScoreDisplay.textContent = currentScore;
-            console.log('did this work')
+            console.log('match');
             clearInputBox();
             generateWord();
+            totalSecs = 5;
         } else {
             wordDisplay.classList.add('animate__animated','animate__shakeX')
-            console.log(wordDisplay)
+            // console.log(wordDisplay)
             setTimeout(clearWordDisplayAnim, 1000);
+            console.log('animate else')
         }
     } 
 }
 
 
+
 //FN-CHECK IF HIGHSCORE HIT
-const isHighScore = () =>{
-    if(totalScore > highScore){
-        highScore = totalScore;
-        highScoreDisplay.textContent = highScore;
-    } else {
-        highScoreDisplay.textContent = highScore;
-    }
-}
+// const isHighScore = () =>{
+//     if(totalScore > highScore){
+//         highScore = totalScore;
+//         highScoreDisplay.textContent = highScore;
+//     } else {
+//         highScoreDisplay.textContent = highScore;
+//     }
+// }
 
 //FN TO DECREMENT SECONDS
 const countdown = () =>{
     if(totalSecs > 0){
-        totalSecs--;
         console.log(totalSecs);
         timerDisplay.textContent = totalSecs;
+        totalSecs--;
+        console.log('>> Countdown Progress isGameStart', isGameStart)
     } else {
-        // console.log(totalSecs)
-        timerDisplay.textContent = totalSecs;
+        timerDisplay.textContent = "--";
         clearInterval(startInterval)
         isGameStart = false;
+        console.log('$$ Countdown END isGameStart', isGameStart)
         // Swal.fire(
         //     'Game Over!',
         //     `Your score is ${totalScore}!`,
@@ -121,44 +123,40 @@ const countdown = () =>{
         //   )
 
 
-        totalScore = currentScore;
+        // totalScore = currentScore;
 
-          Swal.fire({
-            title: `Game Over! Your Score : ${totalScore}`,
-            width: 600,
-            padding: '3em',
-            background: '#fff',
-            backdrop: `
-              rgba(100,100,123,0.4)
-              url("../leoclap.gif")
-              center top
-              no-repeat
-            `
-          })
+        //   Swal.fire({
+        //     title: `Game Over! Your Score : ${totalScore}`,
+        //     width: 600,
+        //     padding: '3em',
+        //     background: '#fff',
+        //     backdrop: `
+        //       rgba(100,100,123,0.4)
+        //       url("../leoclap.gif")
+        //       center top
+        //       no-repeat
+        //     `
+        //   })
         
         // totalScoreDisplay.textContent = totalScore;
-        console.log(totalScore);
-        isHighScore();
+        // console.log(totalScore);
+        // isHighScore();
         gameToStartBtn();
         wordDisplay.textContent = "-- Word --";
         console.log(usedArray);
         console.log(roundArray.length);
         usedArray = [];
         roundArray = fixedArray;
-        console.log(highScore);
-        console.log('in countdown gamestart: ', isGameStart);
+        clearInputBox();
+        // console.log(highScore);
 
     }
 }
 
 
-
-
-
 //ANIMATION FOR WRONG WORD INPUT - currently set to click
 const clearWordDisplayAnim = () =>{
     wordDisplay.classList.remove('animate__animated','animate__shakeX')
-    console.log(wordDisplay)
 }
 
 
@@ -166,45 +164,36 @@ const clearWordDisplayAnim = () =>{
 //---------------------EVENT LISTENERS----------------------------
 
 
-// inputBox.addEventListener('change', function(){
-//     // if(e.key == "Enter"){
-//         // logInput();
-//         checkInputMatch();
-//         // clearInputBox();
-//         // generateWord();
-//         console.log('changed')
-//     // }
-// })
-
-// buttonInit.addEventListener('click', function(){
-//     // console.log('clicked');
-//     isGameStart =  true;
-//     generateWord();
-//     // gameInProgress();
-// })
 
 buttonInit.addEventListener('click', function(){
-    isGameStart = true;
-    currentScore = 0;
-    currentScoreDisplay.textContent = currentScore;
-    generateWord();
-    if (isGameStart){
-        console.log('gamestart: ' , isGameStart);
+        isGameStart = true;
+        currentScore = 0;
+        currentScoreDisplay.textContent = currentScore;
 
-        inputBox.addEventListener('change', function(){
-            // if(e.key == "Enter"){
-                // logInput();
-                checkInputMatch();
-                // clearInputBox();
-                // generateWord();
-                console.log('changed')
-            // }
-        });
+        generateWord();
+        if (isGameStart){
+            startInterval = setInterval(countdown, 1000);
+   
+            inputBox.addEventListener('keypress', function(e){
+                if(e.key === "Enter"){
 
-        startInterval = setInterval(countdown, 1000);
-        gameInProgress();
+                    console.log('Within Change_InputBoxVal ', inputBox.value)
+                    console.log('Within_round_', round);
+                    checkInputMatch();
+            
+
+                    console.log('----EVENTLISTENER CHANGE---')
+                    console.log('Within Change_Current Word:', currentWord)
+                    console.log('Within Change_isGameStart:', isGameStart)
+
+                
+            }});
+        
+            round++;
+            gameInProgress();
+
+        } 
     } 
-}
 )
 
 
@@ -214,13 +203,14 @@ buttonInit.addEventListener('click', function(){
 
 
 
-
-
-
-
-
-
 //------------------------NOTES / DUMMIES-------------------------------
+
+
+//testing fn
+// const logInput = () =>{
+//     console.log(inputBox.value);
+//     console.log(wordDisplay.textContent)
+// }
 
 //enter works for 'change' listener
 //e.keyCode 32 is for spacebar - will create space and mess with scoring
@@ -246,3 +236,22 @@ buttonInit.addEventListener('click', function(){
 //             console.log(wordDisplay)
 //             setTimeout(clearWordDisplayAnim, 1000);
 // });
+
+
+
+// inputBox.addEventListener('change', function(){
+//     // if(e.key == "Enter"){
+//         // logInput();
+//         checkInputMatch();
+//         // clearInputBox();
+//         // generateWord();
+//         console.log('changed')
+//     // }
+// })
+
+// buttonInit.addEventListener('click', function(){
+//     // console.log('clicked');
+//     isGameStart =  true;
+//     generateWord();
+//     // gameInProgress();
+// })
