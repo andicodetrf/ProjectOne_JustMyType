@@ -64,16 +64,23 @@ const clearInputBox = () =>{
 
 //FN-to check if word match & update current score
 const checkInputMatch = () =>{
-    console.log('> ', inputBox.value);
-    console.log('>> ', wordDisplay.textContent);
-    console.log('>>> ', currentWord);
+    // console.log('> ', inputBox.value);
+    // console.log('>> ', wordDisplay.textContent);
+    // console.log('>>> ', currentWord);
+    // console.log(currentScore);
+    // console.log(currentScoreDisplay);
+
     if(inputBox.value === wordDisplay.textContent){
         currentScore++
+        currentScoreDisplay.textContent = currentScore;
         console.log('did this work')
+        clearInputBox();
+        generateWord();
+    } else {
+        wordDisplay.classList.add('animate__animated','animate__shakeX')
+        console.log(wordDisplay)
+        setTimeout(clearWordDisplayAnim, 1000);
     }
-    currentScoreDisplay.textContent = currentScore;
-    console.log(currentScore);
-    console.log(currentScoreDisplay);
 }
 
 
@@ -95,12 +102,12 @@ const countdown = () =>{
 
 
 
-//ANIMATION FOR WRONG WORD INPUT
-wordDisplay.addEventListener('click', function() {
-            wordDisplay.classList.add('animate__animated','animate__shakeX')
-            console.log(wordDisplay)
-            setTimeout(clearWordDisplayAnim, 1000);
-});
+//ANIMATION FOR WRONG WORD INPUT - currently set to click
+// wordDisplay.addEventListener('click', function() {
+//             wordDisplay.classList.add('animate__animated','animate__shakeX')
+//             console.log(wordDisplay)
+//             setTimeout(clearWordDisplayAnim, 1000);
+// });
 
 const clearWordDisplayAnim = () =>{
     wordDisplay.classList.remove('animate__animated','animate__shakeX')
@@ -110,24 +117,15 @@ const clearWordDisplayAnim = () =>{
 
 
 //---------------------EVENT LISTENERS----------------------------
-//enter works for 'change' listener
-//e.keyCode 32 is for spacebar - will create space and mess with scoring
-//enter just put e.key === "Enter"
-// inputBox.addEventListener('keypress', function(e){
-//     if(e.key == "Enter"){
-//         // logInput();
-//         checkInputMatch();
-//         clearInputBox();
-//     }
-// })
+
 
 
 inputBox.addEventListener('change', function(){
     // if(e.key == "Enter"){
         // logInput();
         checkInputMatch();
-        clearInputBox();
-        generateWord();
+        // clearInputBox();
+        // generateWord();
         console.log('changed')
     // }
 })
@@ -139,3 +137,28 @@ buttonInit.addEventListener('click', function(){
     // gameStartedBtn();
 })
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+//------------------------NOTES / DUMMIES-------------------------------
+
+//enter works for 'change' listener
+//e.keyCode 32 is for spacebar - will create space and mess with scoring
+//enter just put e.key === "Enter"
+// inputBox.addEventListener('keypress', function(e){
+//     if(e.key == "Enter"){
+//         // logInput();
+//         checkInputMatch();
+//         clearInputBox();
+//     }
+// })
