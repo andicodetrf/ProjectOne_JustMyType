@@ -14,7 +14,7 @@ body{
     text-align: center;
     margin: 0 auto;
     /* padding: 30em 1em; */
-
+    /* background-image: url('../confetti.gif'); */
 }
 
 
@@ -27,12 +27,12 @@ body{
     background-color: lightgrey;
 }
 
-.timer-block, .current-score-block, .total-score-block{
+.timer-block, .current-score-block, .total-score-block, .highest-score-block{
     display: flex;
     justify-content: center;
 }
 
-.timer-block h2, .current-score-block h2, .total-score-block h2{
+.timer-block h2, .current-score-block h2, .total-score-block h2, .highest-score-block h2{
     padding: 0 8px;
 }
 
@@ -48,6 +48,8 @@ body{
     padding:10px 17px;
 
 }
+
+
 
 
 
