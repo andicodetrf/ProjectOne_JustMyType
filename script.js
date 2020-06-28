@@ -85,7 +85,6 @@ const checkInputMatch = () => {
             totalSecs = 5;
         } else {
             wordDisplay.classList.add('animate__animated','animate__shakeX')
-            // console.log(wordDisplay)
             setTimeout(clearWordDisplayAnim, 1000);
             console.log('animate else')
         }
@@ -148,13 +147,14 @@ const countdown = () =>{
         usedArray = [];
         roundArray = fixedArray;
         clearInputBox();
+        inputBox.disabled = true;
         // console.log(highScore);
 
     }
 }
 
 
-//ANIMATION FOR WRONG WORD INPUT - currently set to click
+//ANIMATION FOR WRONG WORD INPUT 
 const clearWordDisplayAnim = () =>{
     wordDisplay.classList.remove('animate__animated','animate__shakeX')
 }
@@ -167,6 +167,7 @@ const clearWordDisplayAnim = () =>{
 
 buttonInit.addEventListener('click', function(){
         isGameStart = true;
+        inputBox.disabled = false;
         currentScore = 0;
         currentScoreDisplay.textContent = currentScore;
 
@@ -175,17 +176,18 @@ buttonInit.addEventListener('click', function(){
             startInterval = setInterval(countdown, 1000);
    
             inputBox.addEventListener('keypress', function(e){
+                e.stopImmediatePropagation();
                 if(e.key === "Enter"){
-
+                    
+                    console.log('----INPUTBOX EVENTLISTENER START---')
                     console.log('Within Change_InputBoxVal ', inputBox.value)
                     console.log('Within_round_', round);
                     checkInputMatch();
             
-
-                    console.log('----EVENTLISTENER CHANGE---')
+                    
                     console.log('Within Change_Current Word:', currentWord)
                     console.log('Within Change_isGameStart:', isGameStart)
-
+                    console.log('----INPUTBOX EVENTLISTENER END---')
                 
             }});
         
