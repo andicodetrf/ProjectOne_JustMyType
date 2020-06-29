@@ -113,6 +113,7 @@ const countdown = () =>{
         timerDisplay.textContent = totalSecs;
         totalSecs--;
         console.log('>> Countdown Progress isGameStart', isGameStart)
+        
     } else {
         timerDisplay.textContent = "--";
         clearInterval(startInterval)
@@ -161,11 +162,6 @@ const resetRound = () => {
 
 //FN TO FIRE RESULT MODAL
 const resultModal = () => {
-        // Swal.fire(
-        //     'Game Over!',
-        //     `Your score is ${totalScore}!`,
-        //     'success'
-        //   )
 
           Swal.fire({
             title: `Game Over! Your Score : ${totalScore}`,
@@ -204,6 +200,7 @@ buttonInit.addEventListener('click', function(){
                     // console.log('----INPUTBOX EVENTLISTENER START---')
                     // console.log('Within Change_InputBoxVal ', inputBox.value)
                     // console.log('Within_round_', round);
+
                     checkInputMatch();
             
                     // console.log('Within Change_Current Word:', currentWord)
