@@ -39,20 +39,19 @@ const gameInProgress = () => {
     buttonInit.style.backgroundColor = "darkgrey";
     buttonInit.style.color = "grey";
     buttonInit.disabled = true;
-    totalScore = 0;
-    totalScoreDisplay.textContent = totalScore;
 }
 
+//BUTTON ENABLED TO RESTART GAME
 const gameToStartBtn = () => {
-    buttonInit.textContent = 'Play again'
+    buttonInit.textContent = 'Play again!'
     buttonInit.style.backgroundColor = "darkgreen";
     buttonInit.style.color = "white";
     buttonInit.disabled = false;
-    totalSecs = 5;
+
 }
 
 
-//FN-Generate random word
+//FN-TO GENERATE WORD
 const generateWord = () => {
     let rand = Math.floor(Math.random()*roundArray.length);
     let randWord = roundArray[rand];
@@ -64,7 +63,7 @@ const generateWord = () => {
     
 }
 
-
+//FN-TO CLEAR INPUT BOX.
 const clearInputBox = () =>{
     inputBox.value = "";
 }
@@ -93,15 +92,15 @@ const checkInputMatch = () => {
 
 
 
-//FN-CHECK IF HIGHSCORE HIT
-// const isHighScore = () =>{
-//     if(totalScore > highScore){
-//         highScore = totalScore;
-//         highScoreDisplay.textContent = highScore;
-//     } else {
-//         highScoreDisplay.textContent = highScore;
-//     }
-// }
+// FN-CHECK IF HIGHSCORE HIT
+const isHighScore = () =>{
+    if(totalScore > highScore){
+        highScore = totalScore;
+        highScoreDisplay.textContent = highScore;
+    } else {
+        highScoreDisplay.textContent = highScore;
+    }
+}
 
 //FN TO DECREMENT SECONDS
 const countdown = () =>{
@@ -122,8 +121,6 @@ const countdown = () =>{
         //   )
 
 
-        // totalScore = currentScore;
-
         //   Swal.fire({
         //     title: `Game Over! Your Score : ${totalScore}`,
         //     width: 600,
@@ -137,18 +134,16 @@ const countdown = () =>{
         //     `
         //   })
         
-        // totalScoreDisplay.textContent = totalScore;
-        // console.log(totalScore);
-        // isHighScore();
+        totalScoreDisplay.textContent = currentScore;
+        isHighScore();
         gameToStartBtn();
-        wordDisplay.textContent = "-- Word --";
+        wordDisplay.textContent = "-- word --";
         console.log(usedArray);
         console.log(roundArray.length);
         usedArray = [];
         roundArray = fixedArray;
         clearInputBox();
         inputBox.disabled = true;
-        // console.log(highScore);
 
     }
 }
@@ -157,6 +152,10 @@ const countdown = () =>{
 //ANIMATION FOR WRONG WORD INPUT 
 const clearWordDisplayAnim = () =>{
     wordDisplay.classList.remove('animate__animated','animate__shakeX')
+}
+
+const resetRound = () =>{
+    
 }
 
 
@@ -168,28 +167,32 @@ const clearWordDisplayAnim = () =>{
 buttonInit.addEventListener('click', function(){
         isGameStart = true;
         inputBox.disabled = false;
+        inputBox.focus();
+
+        totalSecs = 5;
         currentScore = 0;
         currentScoreDisplay.textContent = currentScore;
+        totalScore = 0;
+        totalScoreDisplay.textContent = totalScore;
 
         generateWord();
+
         if (isGameStart){
             startInterval = setInterval(countdown, 1000);
    
-            inputBox.addEventListener('keypress', function(e){
+            inputBox.addEventListener('change', function(e){
                 e.stopImmediatePropagation();
-                if(e.key === "Enter"){
                     
-                    console.log('----INPUTBOX EVENTLISTENER START---')
-                    console.log('Within Change_InputBoxVal ', inputBox.value)
-                    console.log('Within_round_', round);
+                    // console.log('----INPUTBOX EVENTLISTENER START---')
+                    // console.log('Within Change_InputBoxVal ', inputBox.value)
+                    // console.log('Within_round_', round);
                     checkInputMatch();
             
-                    
-                    console.log('Within Change_Current Word:', currentWord)
-                    console.log('Within Change_isGameStart:', isGameStart)
-                    console.log('----INPUTBOX EVENTLISTENER END---')
-                
-            }});
+                    // console.log('Within Change_Current Word:', currentWord)
+                    // console.log('Within Change_isGameStart:', isGameStart)
+                    // console.log('----INPUTBOX EVENTLISTENER END---')
+
+            });
         
             round++;
             gameInProgress();
@@ -197,6 +200,8 @@ buttonInit.addEventListener('click', function(){
         } 
     } 
 )
+
+
 
 
 
@@ -223,6 +228,10 @@ buttonInit.addEventListener('click', function(){
 //         checkInputMatch();
 //         clearInputBox();
 //     }
+// })
+
+// inputBox.addEventListener('input', function(){
+//     console.log(inputBox.value)
 // })
 
 
