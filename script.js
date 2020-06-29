@@ -27,9 +27,18 @@ let totalScoreDisplay = document.querySelector('.total-score');
 let buttonInit = document.querySelector('.btn-init');
 let nameDisplay = document.querySelector('.player-name');
 let highScoreDisplay = document.querySelector('.highest-score');
-let firstplace = document.querySelector('.first');
-let secondplace = document.querySelector('.second');
-let thirdplace = document.querySelector('.third');
+
+//WITHOUT BOOTSTRAP
+// let firstplace = document.querySelector('.first');
+// let secondplace = document.querySelector('.second');
+// let thirdplace = document.querySelector('.third');
+
+let firstName = document.querySelector('.first-name');
+let secondName = document.querySelector('.second-name');
+let thirdName = document.querySelector('.third-name');
+let firstScore = document.querySelector('.first-score');
+let secondScore = document.querySelector('.second-score');
+let thirdScore = document.querySelector('.third-score');
 
 
 //-------------------FUNCTIONS----------------------------
@@ -38,6 +47,26 @@ const getPlayerName = () => {
     let getName = prompt(`hi what's your name?`)
     nameDisplay.textContent = getName;
     player = getName;
+}
+
+
+//FN - TO FILL 3RD PLACE IN TABLE
+const thirdGroup = () => {
+    thirdName.textContent = `${topPlayersArray[2]}`;
+    thirdScore.textContent = `${topScoreArray[2]}` ;
+}
+
+//FN - TO FILL 2ND PLACE IN TABLE
+const secondGroup = () => {
+    secondName.textContent = `${topPlayersArray[1]}`;
+    secondScore.textContent = `${topScoreArray[1]}`;
+}
+
+//FN - TO FILL 1ST PLACE IN TABLE
+const firstGroup = () => {
+    firstName.textContent = `${topPlayersArray[0]}`;
+    firstScore.textContent = `${topScoreArray[0]}`;
+
 }
 
 
@@ -51,36 +80,49 @@ const ranking = () => {
 
                     topScoreArray[2] = topScoreArray[1]
                     topPlayersArray[2] = topPlayersArray[1]
-                    thirdplace.textContent = `#3 ${topPlayersArray[2]} . . . . . . . . ${topScoreArray[2]}` 
+
+                    // thirdplace.textContent = `#3 ${topPlayersArray[2]} . . . . . . . . ${topScoreArray[2]}`
+                    thirdGroup();
 
                     topScoreArray[1] = topScoreArray[0]
                     topPlayersArray[1] = topPlayersArray[0]
-                    secondplace.textContent = `#2 ${topPlayersArray[1]} . . . . . . . . ${topScoreArray[1]}` 
+                    
+                    // secondplace.textContent = `#2 ${topPlayersArray[1]} . . . . . . . . ${topScoreArray[1]}` 
+                    secondGroup();
 
 
 
                 } else {
                     topScoreArray[1] = topScoreArray[0]
                     topPlayersArray[1] = topPlayersArray[0]
-                    secondplace.textContent = `#2 ${topPlayersArray[1]} . . . . . . . . ${topScoreArray[1]}` 
+
+                    // secondplace.textContent = `#2 ${topPlayersArray[1]} . . . . . . . . ${topScoreArray[1]}` 
+                    secondGroup();
                 }
         }
 
         topScoreArray[0] = totalScore;
         topPlayersArray[0] = player;
-        firstplace.textContent = `#1 ${topPlayersArray[0]} . . . . . . . . ${topScoreArray[0]}`
+
+        // firstplace.textContent = `#1 ${topPlayersArray[0]} . . . . . . . . ${topScoreArray[0]}`
+        firstGroup();
+
 
 
     } else if (totalScore <= topScoreArray[0] && totalScore > topScoreArray[1]) {
         if(topScoreArray[1] > 0){
             topScoreArray[2] = topScoreArray[1]
             topPlayersArray[2] = topPlayersArray[1]
-            thirdplace.textContent = `#3 ${topPlayersArray[2]} . . . . . . . . ${topScoreArray[2]}` 
+
+            // thirdplace.textContent = `#3 ${topPlayersArray[2]} . . . . . . . . ${topScoreArray[2]}` 
+            thirdGroup();
+
         }
         topScoreArray[1] = totalScore;
         topPlayersArray[1] = player;
         
-        secondplace.textContent = `#2 ${topPlayersArray[1]} . . . . . . . . ${topScoreArray[1]}`
+        // secondplace.textContent = `#2 ${topPlayersArray[1]} . . . . . . . . ${topScoreArray[1]}`
+        secondGroup();
 
         
 
@@ -89,7 +131,8 @@ const ranking = () => {
         topScoreArray[2] = totalScore;
         topPlayersArray[2] = player;
 
-        thirdplace.textContent = `#3 ${topPlayersArray[2]} . . . . . . . . ${topScoreArray[2]}`
+        // thirdplace.textContent = `#3 ${topPlayersArray[2]} . . . . . . . . ${topScoreArray[2]}`
+        thirdGroup();
     } 
     console.log('topScArr --> ', topScoreArray);
     console.log('collectionArr --> ', scoreArray);
@@ -97,39 +140,6 @@ const ranking = () => {
 
 }
 
-
-
-// const updateFirstRank = () => {
-//         rankArray.unshift(player)
-//         scoreArray.unshift(totalScore)
-//         firstplace.textContent = `#1 ${rankArray[0]} ..... ${scoreArray[0]}`
-// }
-
-// const updateRestRank = () => {
-//     if(rankArray.length < 3){
-//         rankArray.splice(1, 0, player)
-//         scoreArray.splice(1, 0, totalScore)
-//         secondplace.textContent = `#2 ${rankArray[1]} ..... ${scoreArray[1]}`
-
-//     } else if (rankArray.length > 2 && rankArray < 4){
-//         if(totalScore < scoreArray[1]){
-//             rankArray.splice(2, 0, player)
-//             scoreArray.splice(2, 0, totalScore)
-//             thirdplace.textContent = `#3 ${rankArray[2]} ..... ${scoreArray[2]}`
-//         } else {
-//             rankArray.splice(1, 0, player)
-//             scoreArray.splice(1, 0, totalScore)
-//             secondplace.textContent = `#2 ${rankArray[1]} ..... ${scoreArray[1]}`
-//         }
-
-//     } else {
-//         if(totalScore > scoreArray[2]){
-//             rankArray.splice(2, 0, player)
-//             scoreArray.splice(2, 0, totalScore)
-//             thirdplace.textContent = `#3 ${rankArray[2]} ..... ${scoreArray[2]}`
-//         }
-//     }
-// }
 
 
 
