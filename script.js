@@ -76,20 +76,24 @@ const checkInputMatch = () => {
     console.log('CHECK INPUT MATCH CURRENT WORD ', currentWord)
     if(isGameStart){
         if(inputBox.value === wordDisplay.textContent){
-            currentScore++
-            currentScoreDisplay.textContent = currentScore;
-            console.log('match');
+            console.log('matched');
+            updateCurrentScore();
             clearInputBox();
             generateWord();
-            totalSecs = 5;
+            totalSecs = 5; 
         } else {
+            console.log('DONT match')
             wordDisplay.classList.add('animate__animated','animate__shakeX')
             setTimeout(clearWordDisplayAnim, 1000);
-            console.log('animate else')
         }
     } 
 }
 
+
+const updateCurrentScore = () => {
+    currentScore++
+    currentScoreDisplay.textContent = currentScore;
+}
 
 
 // FN-CHECK IF HIGHSCORE HIT
@@ -114,50 +118,68 @@ const countdown = () =>{
         clearInterval(startInterval)
         isGameStart = false;
         console.log('$$ Countdown END isGameStart', isGameStart)
+
+        displayResult();
+        resultModal();
+        gameToStartBtn();
+        wordDisplay.textContent = "-- word --";
+        clearInputBox();
+        inputBox.disabled = true;
+
+        console.log(usedArray);
+        console.log(roundArray.length);
+
+    }
+}
+
+
+//FN - ANIMATION FOR WRONG WORD INPUT 
+const clearWordDisplayAnim = () =>{
+    wordDisplay.classList.remove('animate__animated','animate__shakeX')
+}
+
+
+//FN TO DISPLAY ROUND RESULT
+const displayResult = () => {
+    totalScore = currentScore
+    totalScoreDisplay.textContent = totalScore;
+    isHighScore();
+}
+
+
+//FN TO RESET ROUND 
+const resetRound = () => {
+    usedArray = [];
+    roundArray = fixedArray;
+    totalSecs = 5;
+    currentScore = 0;
+    currentScoreDisplay.textContent = currentScore;
+    totalScore = 0;
+    totalScoreDisplay.textContent = totalScore;
+}
+
+
+//FN TO FIRE RESULT MODAL
+const resultModal = () => {
         // Swal.fire(
         //     'Game Over!',
         //     `Your score is ${totalScore}!`,
         //     'success'
         //   )
 
-
-        //   Swal.fire({
-        //     title: `Game Over! Your Score : ${totalScore}`,
-        //     width: 600,
-        //     padding: '3em',
-        //     background: '#fff',
-        //     backdrop: `
-        //       rgba(100,100,123,0.4)
-        //       url("../leoclap.gif")
-        //       center top
-        //       no-repeat
-        //     `
-        //   })
-        
-        totalScoreDisplay.textContent = currentScore;
-        isHighScore();
-        gameToStartBtn();
-        wordDisplay.textContent = "-- word --";
-        console.log(usedArray);
-        console.log(roundArray.length);
-        usedArray = [];
-        roundArray = fixedArray;
-        clearInputBox();
-        inputBox.disabled = true;
-
-    }
+          Swal.fire({
+            title: `Game Over! Your Score : ${totalScore}`,
+            width: 600,
+            padding: '3em',
+            background: '#fff',
+            backdrop: `
+              rgba(100,100,123,0.4)
+              url("../leoclap.gif")
+              center top
+              no-repeat
+            `
+          })
 }
-
-
-//ANIMATION FOR WRONG WORD INPUT 
-const clearWordDisplayAnim = () =>{
-    wordDisplay.classList.remove('animate__animated','animate__shakeX')
-}
-
-const resetRound = () =>{
-    
-}
-
 
 
 //---------------------EVENT LISTENERS----------------------------
@@ -169,11 +191,7 @@ buttonInit.addEventListener('click', function(){
         inputBox.disabled = false;
         inputBox.focus();
 
-        totalSecs = 5;
-        currentScore = 0;
-        currentScoreDisplay.textContent = currentScore;
-        totalScore = 0;
-        totalScoreDisplay.textContent = totalScore;
+        resetRound();
 
         generateWord();
 
