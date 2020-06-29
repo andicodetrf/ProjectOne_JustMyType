@@ -9,7 +9,6 @@ body{
 
 hr {
     border: 1px solid white;
-    
 }
 
 .game-title{
@@ -17,18 +16,13 @@ hr {
     padding: 10px 0 10px 0;
 }
 
-.player-name {
-    height: 50px;
-}
 
 .main-container{
     background-color: transparent;
     width: 80%;
-    /* height: 1000px; */
     text-align: center;
     margin: 0 auto;
-    /* padding: 30em 1em; */
-    /* background-image: url('../confetti.gif'); */
+
 }
 
 .word-display {
@@ -52,7 +46,8 @@ hr {
 }
 
 .timer-block h2, .current-score-block h2, .total-score-block h2, .highest-score-block h2{
-    padding: 0 8px;
+  padding: 0 8px;
+  
 }
 
 .btn-init{

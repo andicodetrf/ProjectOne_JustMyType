@@ -3,13 +3,13 @@ console.log('>> script-ran <<')
 
 //-------------------GLOBAL VARIABLES--------------------------
 let isGameStart = false;
-const fixedArray = ["position", "develop", "finish", "coerce", "sick", "preparation", "pin", "resource", "vote", "scheme", "theater", "blonde", "syndrome", "spectrum", "heaven", "present", "pluck", "ridge", "soldier", "liability", "extort", "cross", "equinox", "distributor", "promote", "fisherman", "misplace", "choose", "incredible", "costume", "amputate", "application", "conglomerate", "sanctuary", "dictate", "eaux", "grace", "myth", "architecture", "systematic", "expenditure", "trait", "earthwax", "union", "enemy", "justify", "skilled", "vain", "provision", "sunrise"];
+const fixedArray = ["position", "develop", "finish", "coerce", "sick", "preparation", "pin", "resource", "vote", "scheme", "theater", "blonde", "syndrome", "spectrum", "heaven", "present", "pluck", "ridge", "soldier", "liability", "extort", "cross", "equinox", "distributor", "promote", "fisherman", "misplace", "choose", "incredible", "costume", "amputate", "application", "conglomerate", "sanctuary", "dictate", "eaux", "grace", "myth", "architecture", "systematic", "expenditure", "trait", "earthwax", "union", "enemy", "justify", "skilled", "vain", "provision", "sunrise"]
 let roundArray = ["position", "develop", "finish", "coerce", "sick", "preparation", "pin", "resource", "vote", "scheme", "theater", "blonde", "syndrome", "spectrum", "heaven", "present", "pluck", "ridge", "soldier", "liability", "extort", "cross", "equinox", "distributor", "promote", "fisherman", "misplace", "choose", "incredible", "costume", "amputate", "application", "conglomerate", "sanctuary", "dictate", "eaux", "grace", "myth", "architecture", "systematic", "expenditure", "trait", "earthwax", "union", "enemy", "justify", "skilled", "vain", "provision", "sunrise"]
 let usedArray = [];
 let currentScore = 0;
 let totalScore = 0;
 let currentWord = "";
-let totalSecs = 5;
+let totalSecs = 4;
 let startInterval;
 let highScore = 0;
 let round = 0;
@@ -61,7 +61,7 @@ let thirdScore = document.querySelector('.third-score');
 //GET PLAYER NAME 
 const getPlayerName = () => {
     let getName = prompt(`hi what's your name?`)
-    nameDisplay.textContent = getName;
+    nameDisplay.textContent = `Now playing: ${getName}`;
     player = getName;
 }
 
@@ -155,6 +155,27 @@ const ranking = () => {
 
 }
 
+//pseudocode for LS
+//if first, second and third do not exist, 
+ //localStorage.setItem('firstplayer','firstscore')
+ //localStorage.setItem('secondplayer','secondscore')
+ //localStorage.setItem('thirdplayer','thirdscore')
+
+ //if they do, 
+ //check ifcurrent first player > firstplayerLS , if yes 
+        //setItem('currentfirstplayer', currentFS)
+        //setItem('previousFirstplayer = secondplayer, previousFirstPlayerScore)
+        //setItem('previousSecplayer = thirdplayer, previousSecPlayerScore)
+
+//check if current second player > secondplayerLS, if yes
+
+//setItem('currentseconddplayer', currentSS)
+//setItem('previousSecplayer = thirdplayer, previousSecPlayerScore)
+
+//check if current third player > thirdplayerLS, if yes
+
+//setItem('currentthirdplayer', currentTS)
+
 
 
 //BUTTON DISABLED WHEN GAME IN PROGRESS
@@ -168,23 +189,36 @@ const gameInProgress = () => {
 
 //BUTTON ENABLED TO RESTART GAME
 const gameToStartBtn = () => {
-    buttonInit.textContent = 'Play again!'
+    buttonInit.textContent = 'START'
     buttonInit.style.backgroundColor = "darkgreen";
     buttonInit.style.color = "white";
     buttonInit.disabled = false;
     buttonInit.classList.add('hover');
 }
 
+//FN-TO ALERT THAT ALL WORDS ARE COMPLETED
+const completedWords = () => {
+    wordDisplay.textContent = "CONGRATS YOU DID ALL THE WORDS"
+}
+
 
 //FN-TO GENERATE WORD
 const generateWord = () => {
-    let rand = Math.floor(Math.random()*roundArray.length);
-    let randWord = roundArray[rand];
-    roundArray.splice(rand , 1);
-    usedArray.push(randWord);
- 
-    currentWord = randWord;
-    wordDisplay.textContent = randWord;
+    if(roundArray.length>0){
+        let rand = Math.floor(Math.random()*roundArray.length);
+        let randWord = roundArray[rand];
+        roundArray.splice(rand , 1);
+        usedArray.push(randWord);
+        totalSecs = 4;
+        currentWord = randWord;
+        wordDisplay.textContent = randWord;
+
+
+    } else {
+        //if player completed all the words in the array, display 2 secs
+        totalSecs = 1;
+        completedWords();
+    }
     
 }
 
@@ -207,7 +241,7 @@ const checkInputMatch = () => {
             updateCurrentScore();
             clearInputBox();
             generateWord();
-            totalSecs = 5; 
+
         } else {
             console.log('DONT match')
             wordDisplay.classList.add('animate__animated','animate__shakeX')
@@ -225,6 +259,7 @@ const clearWordDisplayAnim = () =>{
 const updateCurrentScore = () => {
     currentScore++
     currentScoreDisplay.textContent = currentScore;
+    currentScoreDisplay.style.color = "green";
 }
 
 
@@ -233,10 +268,8 @@ const isHighScore = () =>{
     if(totalScore > highScore){
         highScore = totalScore;
         highScoreDisplay.textContent = highScore;
-        // updateFirstRank();
     } else {
         highScoreDisplay.textContent = highScore;
-        // updateRestRank();
     }
 }
 
@@ -245,10 +278,12 @@ const countdown = () =>{
     if(totalSecs > 0){
         console.log(totalSecs);
         timerDisplay.textContent = totalSecs;
+        timerDisplay.style.color = "red";
         totalSecs--;
         console.log('>> Countdown Progress isGameStart', isGameStart)
 
     } else {
+        timerDisplay.style.color = "white"
         timerDisplay.textContent = "--";
         clearInterval(startInterval)
         isGameStart = false;
@@ -257,10 +292,14 @@ const countdown = () =>{
         displayResult();
         // resultModal();
         gameToStartBtn();
+
         wordDisplay.textContent = "-- word --";
+        nameDisplay.textContent = `< Click Start to Play >`;
+        resetCurrentScore();
+
         clearInputBox();
         inputBox.disabled = true;
-
+        
         console.log(usedArray);
         console.log(roundArray.length);
 
@@ -297,10 +336,20 @@ const resultModal = () => {
 //FN TO RESET ROUND 
 const resetRound = () => {
     usedArray = [];
-    roundArray = fixedArray;
-    totalSecs = 5;
+    roundArray = fixedArray.slice(0);
+    // totalSecs = 4;
+    resetTotalScore();
+}
+
+//FN TO RESET CURRENT SCORE
+const resetCurrentScore = () => {
     currentScore = 0;
     currentScoreDisplay.textContent = currentScore;
+    currentScoreDisplay.style.color = "white";
+}
+
+//FN TO RESET TOTAL SCORE
+const resetTotalScore = () =>{
     totalScore = 0;
     totalScoreDisplay.textContent = totalScore;
 }
