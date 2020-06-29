@@ -3,19 +3,37 @@
 }
 
 body{
-    background: rgb(47,79,79);
     color: white;
     font-family: "Lucida Console", Monaco, monospace;
 }
 
+hr {
+    border: 1px solid white;
+    
+}
+
+.game-title{
+    margin: 0px;
+    padding: 10px 0 10px 0;
+}
+
+.player-name {
+    height: 50px;
+}
+
 .main-container{
-    background-color: darkcyan;
+    background-color: transparent;
     width: 80%;
     /* height: 1000px; */
     text-align: center;
     margin: 0 auto;
     /* padding: 30em 1em; */
     /* background-image: url('../confetti.gif'); */
+}
+
+.word-display {
+    color: salmon;
+    font-size: 3em;
 }
 
 
@@ -43,6 +61,8 @@ body{
     margin: 20px 0 20px 0;
     border-radius: 5px;
     background-color: darkgreen;
+    border: 2px solid rgb(13, 36, 41);
+    color: white;
 }
 
 .hover:hover{
@@ -56,6 +76,112 @@ body{
 }
 
 
+  
+body {
+    background-color: rgba(13, 16, 34, 1);
+    /* background-color:white; */
+    margin: 0px ;
+    padding: 0px;
+ 
+}
+  
 
-
-
+  /* TAKEN FROM MARCELO (MR SMITH) */
+/*   
+  @-webkit-keyframes backgroundAnimate {
+    from {
+      left: 0;
+      top: 0;
+    }
+    to {
+      left: -10000px;
+      top: -2000px;
+    }
+  }
+  
+  @-moz-keyframes backgroundAnimate {
+    from {
+      left: 0;
+      top: 0;
+    }
+    to {
+      left: -10000px;
+      top: -2000px;
+    }
+  }
+  
+  @-o-keyframes backgroundAnimate {
+    from {
+      left: 0;
+      top: 0;
+    }
+    to {
+      left: -10000px;
+      top: -2000px;
+    }
+  }
+  
+  @keyframes backgroundAnimate {
+    from {
+      left: 0;
+      top: 0;
+    }
+    to {
+      left: -10000px;
+      top: -2000px;
+    }
+  }
+  
+  #back {
+    background: url(http://www.tranexnet.com/img/back.png) repeat 20% 20%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.4;
+    z-index: -1;
+    -webkit-animation-name: backgroundAnimate;
+    -webkit-animation-duration: 500s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation-name: backgroundAnimate;
+    -moz-animation-duration: 5s;
+    -moz-animation-timing-function: linear;
+    -moz-animation-iteration-count: infinite;
+    -o-animation-name: backgroundAnimate;
+    -o-animation-duration: 500s;
+    -o-animation-timing-function: linear;
+    -o-animation-iteration-count: infinite;
+    animation-name: backgroundAnimate;
+    animation-duration: 500s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+  
+  #front {
+    background: url(http://www.tranexnet.com/img/front.png) repeat 35% 35%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.4;
+    z-index: -1;
+    -webkit-animation-name: backgroundAnimate;
+    -webkit-animation-duration: 300s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation-name: backgroundAnimate;
+    -moz-animation-duration: 300s;
+    -moz-animation-timing-function: linear;
+    -moz-animation-iteration-count: infinite;
+    -o-animation-name: backgroundAnimate;
+    -o-animation-duration: 300s;
+    -o-animation-timing-function: linear;
+    -o-animation-iteration-count: infinite;
+    animation-name: backgroundAnimate;
+    animation-duration: 300s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  } */
