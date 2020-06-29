@@ -45,7 +45,8 @@ body{
 }
 
 .btn-init:hover{
-    padding:10px 17px;
+    padding: 10px 17px;
+    margin: 18px 0 18px 0;
 
 }
 

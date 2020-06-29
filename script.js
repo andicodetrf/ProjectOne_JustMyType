@@ -63,13 +63,15 @@ const generateWord = () => {
     
 }
 
-//FN-TO CLEAR INPUT BOX.
+//FN-TO CLEAR INPUT BOX
 const clearInputBox = () =>{
     inputBox.value = "";
 }
 
 
-//FN-to check if word match & update current score
+//FN-TO CHECK IF INPUT WORD MATCH:
+    //IF MATCH UPDATE SCORE & RESET SECONDS, GEN NEW WORD.
+    //IF DONT MATCH, ANIMATE WORD
 const checkInputMatch = () => {
     console.log("CHECK INPUT MATCH GAME START: ", isGameStart)
     console.log('CHECK INPUT MATCH IN-VAL: ', inputBox.value)
@@ -89,14 +91,19 @@ const checkInputMatch = () => {
     } 
 }
 
+//FN - ANIMATION FOR WRONG WORD INPUT 
+const clearWordDisplayAnim = () =>{
+    wordDisplay.classList.remove('animate__animated','animate__shakeX')
+}
 
+//FN-TO UPDATE CURRENT SCORE
 const updateCurrentScore = () => {
     currentScore++
     currentScoreDisplay.textContent = currentScore;
 }
 
 
-// FN-CHECK IF HIGHSCORE HIT
+//FN-TO CHECK IF HIGHSCORE IS EXCEEDED, IF YES, DISPLAY NEW HIGHSCORE
 const isHighScore = () =>{
     if(totalScore > highScore){
         highScore = totalScore;
@@ -106,14 +113,14 @@ const isHighScore = () =>{
     }
 }
 
-//FN TO DECREMENT SECONDS
+//FN TO DECREMENT SECONDS & DISPLAY RESULTS WHEN TIMEOUT
 const countdown = () =>{
     if(totalSecs > 0){
         console.log(totalSecs);
         timerDisplay.textContent = totalSecs;
         totalSecs--;
         console.log('>> Countdown Progress isGameStart', isGameStart)
-        
+
     } else {
         timerDisplay.textContent = "--";
         clearInterval(startInterval)
@@ -134,31 +141,12 @@ const countdown = () =>{
 }
 
 
-//FN - ANIMATION FOR WRONG WORD INPUT 
-const clearWordDisplayAnim = () =>{
-    wordDisplay.classList.remove('animate__animated','animate__shakeX')
-}
-
-
 //FN TO DISPLAY ROUND RESULT
 const displayResult = () => {
     totalScore = currentScore
     totalScoreDisplay.textContent = totalScore;
     isHighScore();
 }
-
-
-//FN TO RESET ROUND 
-const resetRound = () => {
-    usedArray = [];
-    roundArray = fixedArray;
-    totalSecs = 5;
-    currentScore = 0;
-    currentScoreDisplay.textContent = currentScore;
-    totalScore = 0;
-    totalScoreDisplay.textContent = totalScore;
-}
-
 
 //FN TO FIRE RESULT MODAL
 const resultModal = () => {
@@ -178,8 +166,18 @@ const resultModal = () => {
 }
 
 
-//---------------------EVENT LISTENERS----------------------------
+//FN TO RESET ROUND 
+const resetRound = () => {
+    usedArray = [];
+    roundArray = fixedArray;
+    totalSecs = 5;
+    currentScore = 0;
+    currentScoreDisplay.textContent = currentScore;
+    totalScore = 0;
+    totalScoreDisplay.textContent = totalScore;
+}
 
+//---------------------EVENT LISTENERS----------------------------
 
 
 buttonInit.addEventListener('click', function(){
