@@ -5,6 +5,7 @@
 body{
     background: rgb(47,79,79);
     color: white;
+    font-family: "Lucida Console", Monaco, monospace;
 }
 
 .main-container{
@@ -44,7 +45,7 @@ body{
     background-color: darkgreen;
 }
 
-.btn-init:hover{
+.hover:hover{
     padding: 10px 17px;
     margin: 18px 0 18px 0;
 

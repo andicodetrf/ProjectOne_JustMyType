@@ -14,11 +14,9 @@ let startInterval;
 let highScore = 0;
 let round = 0;
 let player = "";
-// let playerScore = totalScore;
 let topPlayersArray = [];
 let topScoreArray = [0,0,0];
-// let playersArray = [];
-let scoreArray = [0];
+let scoreArray = [];
 
 //-------------------DOM SELECTORS----------------------------
 let wordDisplay = document.querySelector('.word-display');
@@ -45,30 +43,58 @@ const getPlayerName = () => {
 
 const ranking = () => {
     scoreArray.unshift(totalScore);
-    // playersArray.unshift(player);
-    if(totalScore > highScore) {
-        // topScoreArray.unshift(totalScore);
-        // topPlayersArray.unshift(player);
-        topScoreArray[0] = totalScore;
 
-    // } else if (scoreArray[0] <= topScoreArray[0] && scoreArray[0] > topScoreArray[1]) {
+    if(totalScore > highScore) {
+        if(topScoreArray[0] > 0){
+                if(topScoreArray[1] > 0){
+
+
+                    topScoreArray[2] = topScoreArray[1]
+                    topPlayersArray[2] = topPlayersArray[1]
+                    thirdplace.textContent = `#3 ${topPlayersArray[2]} . . . . . . . . ${topScoreArray[2]}` 
+
+                    topScoreArray[1] = topScoreArray[0]
+                    topPlayersArray[1] = topPlayersArray[0]
+                    secondplace.textContent = `#2 ${topPlayersArray[1]} . . . . . . . . ${topScoreArray[1]}` 
+
+
+
+                } else {
+                    topScoreArray[1] = topScoreArray[0]
+                    topPlayersArray[1] = topPlayersArray[0]
+                    secondplace.textContent = `#2 ${topPlayersArray[1]} . . . . . . . . ${topScoreArray[1]}` 
+                }
+        }
+
+        topScoreArray[0] = totalScore;
+        topPlayersArray[0] = player;
+        firstplace.textContent = `#1 ${topPlayersArray[0]} . . . . . . . . ${topScoreArray[0]}`
+
 
     } else if (totalScore <= topScoreArray[0] && totalScore > topScoreArray[1]) {
+        if(topScoreArray[1] > 0){
+            topScoreArray[2] = topScoreArray[1]
+            topPlayersArray[2] = topPlayersArray[1]
+            thirdplace.textContent = `#3 ${topPlayersArray[2]} . . . . . . . . ${topScoreArray[2]}` 
+        }
         topScoreArray[1] = totalScore;
+        topPlayersArray[1] = player;
+        
+        secondplace.textContent = `#2 ${topPlayersArray[1]} . . . . . . . . ${topScoreArray[1]}`
 
+        
 
-    // } else if (scoreArray[0] <= topScoreArray[1] && scoreArray[0] > topScoreArray[2]) {
 
     } else if (totalScore <= topScoreArray[1] && totalScore > topScoreArray[2]) {
         topScoreArray[2] = totalScore;
+        topPlayersArray[2] = player;
 
+        thirdplace.textContent = `#3 ${topPlayersArray[2]} . . . . . . . . ${topScoreArray[2]}`
     } 
     console.log('topScArr --> ', topScoreArray);
     console.log('collectionArr --> ', scoreArray);
     console.log(totalScore);
-    // if(topScoreArray.length > 3){
-    //     topScoreArray.pop();
-    // }
+
 }
 
 
@@ -110,9 +136,11 @@ const ranking = () => {
 
 //BUTTON DISABLED WHEN GAME IN PROGRESS
 const gameInProgress = () => {
+    buttonInit.textContent = 'Game on!'
     buttonInit.style.backgroundColor = "darkgrey";
     buttonInit.style.color = "grey";
     buttonInit.disabled = true;
+    buttonInit.classList.remove('hover');
 }
 
 //BUTTON ENABLED TO RESTART GAME
@@ -121,6 +149,7 @@ const gameToStartBtn = () => {
     buttonInit.style.backgroundColor = "darkgreen";
     buttonInit.style.color = "white";
     buttonInit.disabled = false;
+    buttonInit.classList.add('hover');
 }
 
 
@@ -262,7 +291,7 @@ buttonInit.addEventListener('click', function(){
         inputBox.focus();
 
         resetRound();
-
+        getPlayerName();
         generateWord();
 
         if (isGameStart){
