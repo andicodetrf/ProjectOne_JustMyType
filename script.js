@@ -18,6 +18,22 @@ let topPlayersArray = [];
 let topScoreArray = [0,0,0];
 let scoreArray = [];
 
+// let champion = {
+//     name: topPlayersArray[0],
+//     score: topScoreArray[0]
+// }
+
+// let firstRunner = {
+//     name: topPlayersArray[1],
+//     score: topScoreArray[1]
+// }
+
+// let secondRunner = {
+//     name: topPlayersArray[2],
+//     score: topScoreArray[2]
+// }
+
+
 //-------------------DOM SELECTORS----------------------------
 let wordDisplay = document.querySelector('.word-display');
 let inputBox = document.querySelector('.input-box');
@@ -66,10 +82,10 @@ const secondGroup = () => {
 const firstGroup = () => {
     firstName.textContent = `${topPlayersArray[0]}`;
     firstScore.textContent = `${topScoreArray[0]}`;
-
 }
 
 
+//FN - UPDATE WALL OF FAME SCOREBOARD
 const ranking = () => {
     scoreArray.unshift(totalScore);
 
@@ -124,8 +140,7 @@ const ranking = () => {
         // secondplace.textContent = `#2 ${topPlayersArray[1]} . . . . . . . . ${topScoreArray[1]}`
         secondGroup();
 
-        
-
+    
 
     } else if (totalScore <= topScoreArray[1] && totalScore > topScoreArray[2]) {
         topScoreArray[2] = totalScore;
@@ -139,8 +154,6 @@ const ranking = () => {
     console.log(totalScore);
 
 }
-
-
 
 
 
