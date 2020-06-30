@@ -1,10 +1,22 @@
 console.log('>> script-ran <<')
 
+//10chars50words = ["adsorbable", "adulterine", "farfetched", "autocratic", "illustrate", "decolonise", "underprice", "remarkable", "complicate", "dissilient", "mimeograph", "struggling", "circumvent", "unreadable", "undogmatic", "devitalise", "entrancing", "calibrated", "infallible", "treasonous", "commentate", "relentless", "catacorner", "quarantine", "immaculate", "hemophilic", "assignable", "isotropous", "talismanic", "cogitative", "orthopedic", "foreboding", "contiguous", "slithering", "equipotent", "synonymous", "fastidious", "apostatise", "ingratiate", "masquerade", "gregarious", "confiscate", "adjudicate", "collagenic", "vapourific", "caricature", "exfiltrate", "stochastic", "lipotropic", "ascribable"]
+//9chars50words = ["eliminate", "refractory", "desalinise", "bifurcate", "agreement", "apparatus", "executrix", "perforate", "publicity", "anaglyphic", "anaclisis", "fluorosis", "unsinewed", "anecdotic", "elliptical", "apotheose", "unedifying", "parameter", "deviation", "formulate", "timetable", "integrity", "sculpture", "catalogue", "guerrilla", "disappear", "recession", "unanimous", "scorching", "germinate", "reverence", "infuriate", "sedentary", "entangled", "untenable", "unengaged", "malleable", "miniature", "partition", "verminous", "pervasive", "rubberize", "carousing", "integrate", "reversive", "alabaster", "residuary", "byzantine", "patronage", "chambered"]
+//13chars25words = ["lackadaisical", "macroscopical", "incorruptible", "irreclaimable", "acculturative", "superstitious", "hypercritical", "gynecological", "transmissible", "unjustifiable", "kaleidoscopic", "anagrammatize", "anachronistic", "differentiate", "unconsecrated", "discretionary", "desynchronize", "unserviceable", " lexicographic", " hypoglycaemic", "disintegrable", "untraversable", "quadrilateral", "reciprocatory", "interrogatory"]
+//12chars25words = ["acquaintance", "spokesperson", "constituency", "intelligence", "jurisdiction", "conglomerate", "architecture", "refrigerator", "anticipation", "prescription", "accumulation", "dermatologic", "effervescent", "prejudicious", "algometrical", "pathological", "disciplinary", "intervention", "intermediate", "disagreement", "advantageous", "civilization", "polysemantic", "altitudinous", "monopolistic"]
+
+//easyArr is 10 chars while medArr is 13 chars
+let easyArr = ["vertebrate", "adulterine", "farfetched", "autocratic", "illustrate", "decolonise", "underprice", "remarkable", "complicate", "dissilient", "mimeograph", "struggling", "circumvent", "unreadable", "undogmatic", "devitalise", "entrancing", "calibrated", "infallible", "treasonous", "commentate", "relentless", "catacorner", "quarantine", "immaculate", "hemophilic", "assignable", "isotropous", "talismanic", "cogitative", "orthopedic", "foreboding", "contiguous", "slithering", "equipotent", "synonymous", "fastidious", "apostatise", "ingratiate", "masquerade", "gregarious", "confiscate", "adjudicate", "collagenic", "vapourific", "caricature", "exfiltrate", "stochastic", "lipotropic", "ascribable"]
+let medArr = ["lackadaisical", "macroscopical", "incorruptible", "irreclaimable", "acculturative", "superstitious", "hypercritical", "gynecological", "transmissible", "unjustifiable", "kaleidoscopic", "anagrammatize", "anachronistic", "differentiate", "unconsecrated", "discretionary", "desynchronize", "unserviceable", " lexicographic", " hypoglycaemic", "disintegrable", "untraversable", "quadrilateral", "reciprocatory", "interrogatory"]
+
+// const fixedArray = ["position", "develop", "finish", "coerce", "sick", "preparation", "pin", "resource", "vote", "scheme", "theater", "blonde", "syndrome", "spectrum", "heaven", "present", "pluck", "ridge", "soldier", "liability", "extort", "cross", "equinox", "distributor", "promote", "fisherman", "misplace", "choose", "incredible", "costume", "amputate", "application", "conglomerate", "sanctuary", "dictate", "eaux", "grace", "myth", "architecture", "systematic", "expenditure", "trait", "earthwax", "union", "enemy", "justify", "skilled", "vain", "provision", "sunrise"]
+// let roundArray = ["position", "develop", "finish", "coerce", "sick", "preparation", "pin", "resource", "vote", "scheme", "theater", "blonde", "syndrome", "spectrum", "heaven", "present", "pluck", "ridge", "soldier", "liability", "extort", "cross", "equinox", "distributor", "promote", "fisherman", "misplace", "choose", "incredible", "costume", "amputate", "application", "conglomerate", "sanctuary", "dictate", "eaux", "grace", "myth", "architecture", "systematic", "expenditure", "trait", "earthwax", "union", "enemy", "justify", "skilled", "vain", "provision", "sunrise"]
+
 
 //-------------------GLOBAL VARIABLES--------------------------
 let isGameStart = false;
-const fixedArray = ["position", "develop", "finish", "coerce", "sick", "preparation", "pin", "resource", "vote", "scheme", "theater", "blonde", "syndrome", "spectrum", "heaven", "present", "pluck", "ridge", "soldier", "liability", "extort", "cross", "equinox", "distributor", "promote", "fisherman", "misplace", "choose", "incredible", "costume", "amputate", "application", "conglomerate", "sanctuary", "dictate", "eaux", "grace", "myth", "architecture", "systematic", "expenditure", "trait", "earthwax", "union", "enemy", "justify", "skilled", "vain", "provision", "sunrise"]
-let roundArray = ["position", "develop", "finish", "coerce", "sick", "preparation", "pin", "resource", "vote", "scheme", "theater", "blonde", "syndrome", "spectrum", "heaven", "present", "pluck", "ridge", "soldier", "liability", "extort", "cross", "equinox", "distributor", "promote", "fisherman", "misplace", "choose", "incredible", "costume", "amputate", "application", "conglomerate", "sanctuary", "dictate", "eaux", "grace", "myth", "architecture", "systematic", "expenditure", "trait", "earthwax", "union", "enemy", "justify", "skilled", "vain", "provision", "sunrise"]
+//const fixedArray = ["position", "develop", "finish", "coerce", "sick", "preparation", "pin", "resource", "vote", "scheme", "theater", "blonde", "syndrome", "spectrum", "heaven", "present", "pluck", "ridge", "soldier", "liability", "extort", "cross", "equinox", "distributor", "promote", "fisherman", "misplace", "choose", "incredible", "costume", "amputate", "application", "conglomerate", "sanctuary", "dictate", "eaux", "grace", "myth", "architecture", "systematic", "expenditure", "trait", "earthwax", "union", "enemy", "justify", "skilled", "vain", "provision", "sunrise"]
+let roundArray;
 let usedArray = [];
 let currentScore = 0;
 let totalScore = 0;
@@ -40,6 +52,9 @@ let thirdName = document.querySelector('.third-name');
 let firstScore = document.querySelector('.first-score');
 let secondScore = document.querySelector('.second-score');
 let thirdScore = document.querySelector('.third-score');
+
+let level = document.querySelector('#level')
+
 
 
 //-------------------FUNCTIONS----------------------------
@@ -217,6 +232,17 @@ const completedWords = () => {
 }
 
 
+const levelSelector = () => {
+    if(level.value === "easy"){
+        console.log(level.value);
+        roundArray = easyArr.slice(0)
+    } else {
+        console.log(level.value);
+        roundArray = medArr.slice(0)
+    }
+}
+
+
 //FN-TO GENERATE WORD
 const generateWord = () => {
     if(roundArray.length>0){
@@ -271,9 +297,15 @@ const clearWordDisplayAnim = () =>{
 
 //FN-TO UPDATE CURRENT SCORE
 const updateCurrentScore = () => {
-    currentScore++
-    currentScoreDisplay.textContent = currentScore;
-    currentScoreDisplay.style.color = "green";
+    if(level.value === "easy"){
+        currentScore++
+        currentScoreDisplay.textContent = currentScore;
+        currentScoreDisplay.style.color = "green";
+    } else {
+        currentScore = currentScore + 2;
+        currentScoreDisplay.textContent = currentScore;
+        currentScoreDisplay.style.color = "green";
+    }
 }
 
 
@@ -340,7 +372,8 @@ const resultModal = () => {
 //FN TO RESET ROUND 
 const resetRound = () => {
     usedArray = [];
-    roundArray = fixedArray.slice(0);
+    levelSelector();
+    // roundArray = fixedArray.slice(0);
     // totalSecs = 4;
     resetTotalScore();
 }
