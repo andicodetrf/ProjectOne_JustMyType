@@ -11,35 +11,12 @@ let totalScore = 0;
 let currentWord = "";
 let totalSecs = 4;
 let startInterval;
-let highScore = 0;
+let highScore;
 let round = 0;
 let player = "";
 let topPlayersArray = [];
 let topScoreArray = [0,0,0];
 let scoreArray = [];
-
-
-let FPName = "";
-let FPScore = 0;
-let SPName = "";
-let SPScore = 0;
-let TPName = "";
-let TPScore = 0;
-
-// let champion = {
-//     name: topPlayersArray[0],
-//     score: topScoreArray[0]
-// }
-
-// let firstRunner = {
-//     name: topPlayersArray[1],
-//     score: topScoreArray[1]
-// }
-
-// let secondRunner = {
-//     name: topPlayersArray[2],
-//     score: topScoreArray[2]
-// }
 
 
 //-------------------DOM SELECTORS----------------------------
@@ -63,6 +40,9 @@ let thirdName = document.querySelector('.third-name');
 let firstScore = document.querySelector('.first-score');
 let secondScore = document.querySelector('.second-score');
 let thirdScore = document.querySelector('.third-score');
+
+let leaderName = document.querySelectorAll('.leadername')
+let leaderScore = document.querySelectorAll('.leaderscore')
 
 
 //-------------------FUNCTIONS----------------------------
@@ -90,138 +70,116 @@ const getPlayerName = () => {
     player = getName;
 }
 
-
+//OPTIMIZED LEADERBOARD #1-#3 FUNCTIONS
 //FN - TO FILL 3RD PLACE IN TABLE
 const thirdGroup = () => {
-    thirdName.textContent = `${topPlayersArray[2]}`;
-    thirdScore.textContent = `${topScoreArray[2]}` ;
+    thirdName.textContent = `${LSthirdName}`;
+    thirdScore.textContent = `${LSthirdScore}`;
 }
 
-//FN - TO FILL 2ND PLACE IN TABLE
+// //FN - TO FILL 2ND PLACE IN TABLE
 const secondGroup = () => {
-    secondName.textContent = `${topPlayersArray[1]}`;
-    secondScore.textContent = `${topScoreArray[1]}`;
+    secondName.textContent = `${LSsecondName}`;
+    secondScore.textContent = `${LSsecondScore}`;
 }
 
-//FN - TO FILL 1ST PLACE IN TABLE
+// //FN - TO FILL 1ST PLACE IN TABLE
 const firstGroup = () => {
-    firstName.textContent = `${topPlayersArray[0]}`;
-    firstScore.textContent = `${topScoreArray[0]}`;
+    firstName.textContent = `${LSfirstName}`;
+    firstScore.textContent = `${LSfirstScore}`;
 }
 
+// -------------- LOCALSTORAGE VAR SETUP ---------------
+let LSfirstName = localStorage.getItem('num1Name');
+let LSfirstScore = localStorage.getItem('num1Score');
+let LSsecondName = localStorage.getItem('num2Name');
+let LSsecondScore = localStorage.getItem('num2Score');
+let LSthirdName = localStorage.getItem('num3Name');
+let LSthirdScore = localStorage.getItem('num3Score');
 
-//FN - UPDATE WALL OF FAME SCOREBOARD
+//populate leaderboard when user open browser before gameplay
+    firstGroup();
+    secondGroup();
+    thirdGroup();
+    highScoreDisplay.textContent = LSfirstScore;
+
+//FN - UPDATE WALL OF FAME SCOREBOARD WITH LOCALSTORAGE
 const ranking = () => {
+
+    //TRACK INPUT FOR TESTCASES
     scoreArray.unshift(totalScore);
 
-    if(totalScore > highScore) {
-            if(topScoreArray[0] > 0){
-                if(topScoreArray[1] > 0){
+    if(LSfirstName !== null && LSfirstScore !== null ){
+        //IF THERE ARE EXISTING SCORES
+            if(totalScore > Number(LSfirstScore)){
 
-
-                    topScoreArray[2] = topScoreArray[1]
-                    topPlayersArray[2] = topPlayersArray[1]
-
-                    // thirdplace.textContent = `#3 ${topPlayersArray[2]} . . . . . . . . ${topScoreArray[2]}`
-                    thirdGroup();
-
-                    topScoreArray[1] = topScoreArray[0]
-                    topPlayersArray[1] = topPlayersArray[0]
-                    
-                    // secondplace.textContent = `#2 ${topPlayersArray[1]} . . . . . . . . ${topScoreArray[1]}` 
-                    secondGroup();
-
-
-
-                } else {
-                    topScoreArray[1] = topScoreArray[0]
-                    topPlayersArray[1] = topPlayersArray[0]
-
-                    // secondplace.textContent = `#2 ${topPlayersArray[1]} . . . . . . . . ${topScoreArray[1]}` 
-                    secondGroup();
+                if(LSsecondName !== null){
+                    LSthirdName =  LSsecondName;
+                    LSthirdScore =  LSsecondScore;
+                    localStorage.setItem('num3Name', LSthirdName);
+                    localStorage.setItem('num3Score', LSthirdScore);
                 }
+
+
+                LSsecondName =  LSfirstName;
+                LSsecondScore =  LSfirstScore;
+                localStorage.setItem('num2Name', LSsecondName);
+                localStorage.setItem('num2Score', LSsecondScore);
+
+
+                LSfirstScore = totalScore;
+                LSfirstName = player;
+                localStorage.setItem('num1Name', LSfirstName);
+                localStorage.setItem('num1Score', LSfirstScore);
+
+            } 
+
+            else if(totalScore > Number(LSsecondScore) && totalScore <= Number(LSfirstScore)) {
+
+                if(LSsecondScore !== null){
+                    LSthirdName =  LSsecondName;
+                    LSthirdScore =  LSsecondScore;
+                    localStorage.setItem('num3Name', LSthirdName);
+                    localStorage.setItem('num3Score', LSthirdScore);
+                }
+
+
+                LSsecondName =  player;
+                LSsecondScore =  totalScore;
+                localStorage.setItem('num2Name', LSsecondName);
+                localStorage.setItem('num2Score', LSsecondScore);
+
             }
 
-        topScoreArray[0] = totalScore;
-        topPlayersArray[0] = player;
-        // firstplace.textContent = `#1 ${topPlayersArray[0]} . . . . . . . . ${topScoreArray[0]}`
-        firstGroup();
-        FPName = player;
-        FPScore = totalScore;
+            else if(totalScore > Number(LSthirdScore)) {
 
-        let LSfirstName = localStorage.getItem('num1Name');
-        let LSfirstScore = localStorage.getItem('num1Score');
+                LSthirdName =  player;
+                LSthirdScore =  totalScore;
+                localStorage.setItem('num3Name', LSthirdName);
+                localStorage.setItem('num3Score', LSthirdScore);
 
-        if(LSfirstName !== null && LSfirstScore !== null ){
-                if(FPScore > Number(LSfirstScore)){
-                    LSfirstScore = FPScore;
-                    LSfirstName = FPName;
-                    localStorage.setItem('num1Name', FPName)
-                    localStorage.setItem('num1Score', FPScore)
-                }
-        } else {
-                LSfirstScore = FPScore;
-                LSfirstName = FPName;
-                localStorage.setItem('num1Name', FPName)
-                localStorage.setItem('num1Score', FPScore)
-        }
+            }
 
 
+    } else {
+        //IF LEADERBOARD IS TOTALLY EMPTY
+            LSfirstScore = totalScore;
+            LSfirstName = player;
+            localStorage.setItem('num1Name', LSfirstName)
+            localStorage.setItem('num1Score', LSfirstScore)
+    }
 
 
+    console.log(localStorage);
 
+    //localStorage array is doing unshift rather than push - just fyi
 
-    } else if (totalScore <= topScoreArray[0] && totalScore > topScoreArray[1]) {
-        if(topScoreArray[1] > 0){
-            topScoreArray[2] = topScoreArray[1]
-            topPlayersArray[2] = topPlayersArray[1]
-
-            // thirdplace.textContent = `#3 ${topPlayersArray[2]} . . . . . . . . ${topScoreArray[2]}` 
-            thirdGroup();
-
-        }
-        topScoreArray[1] = totalScore;
-        topPlayersArray[1] = player;
-        
-        // secondplace.textContent = `#2 ${topPlayersArray[1]} . . . . . . . . ${topScoreArray[1]}`
-        secondGroup();
-
-    
-
-    } else if (totalScore <= topScoreArray[1] && totalScore > topScoreArray[2]) {
-        topScoreArray[2] = totalScore;
-        topPlayersArray[2] = player;
-
-        // thirdplace.textContent = `#3 ${topPlayersArray[2]} . . . . . . . . ${topScoreArray[2]}`
-        thirdGroup();
-    } 
-    console.log('topScArr --> ', topScoreArray);
-    console.log('collectionArr --> ', scoreArray);
-    console.log(totalScore);
+    //populate leaderboard
+    firstGroup();
+    secondGroup();
+    thirdGroup();
 
 }
-
-//pseudocode for LS
-//if first, second and third do not exist, 
- //localStorage.setItem('firstplayer','firstscore')
- //localStorage.setItem('secondplayer','secondscore')
- //localStorage.setItem('thirdplayer','thirdscore')
-
- //if they do, 
- //check ifcurrent first player > firstplayerLS , if yes 
-        //setItem('currentfirstplayer', currentFS)
-        //setItem('previousFirstplayer = secondplayer, previousFirstPlayerScore)
-        //setItem('previousSecplayer = thirdplayer, previousSecPlayerScore)
-
-//check if current second player > secondplayerLS, if yes
-
-//setItem('currentseconddplayer', currentSS)
-//setItem('previousSecplayer = thirdplayer, previousSecPlayerScore)
-
-//check if current third player > thirdplayerLS, if yes
-
-//setItem('currentthirdplayer', currentTS)
-
 
 
 //BUTTON DISABLED WHEN GAME IN PROGRESS
@@ -258,7 +216,6 @@ const generateWord = () => {
         totalSecs = 4;
         currentWord = randWord;
         wordDisplay.textContent = randWord;
-
 
     } else {
         //if player completed all the words in the array, display 2 secs
@@ -311,12 +268,7 @@ const updateCurrentScore = () => {
 
 //FN-TO CHECK IF HIGHSCORE IS EXCEEDED, IF YES, DISPLAY NEW HIGHSCORE
 const isHighScore = () =>{
-    if(totalScore > highScore){
-        highScore = totalScore;
-        highScoreDisplay.textContent = highScore;
-    } else {
-        highScoreDisplay.textContent = highScore;
-    }
+    highScoreDisplay.textContent = LSfirstScore;
 }
 
 //FN TO DECREMENT SECONDS & DISPLAY RESULTS WHEN TIMEOUT
@@ -502,3 +454,105 @@ buttonInit.addEventListener('click', function(){
 //     generateWord();
 //     // gameInProgress();
 // })
+
+
+//--- > PRE-LOCALSTORAGE IMPLEMENTATION FOR LEADERBOARD
+/* if(totalScore > highScore) {
+    if(topScoreArray[0] > 0){
+        if(topScoreArray[1] > 0){
+
+            topScoreArray[2] = topScoreArray[1]
+            topPlayersArray[2] = topPlayersArray[1]
+
+            // thirdplace.textContent = `#3 ${topPlayersArray[2]} . . . . . . . . ${topScoreArray[2]}`
+            thirdGroup();
+
+            topScoreArray[1] = topScoreArray[0]
+            topPlayersArray[1] = topPlayersArray[0]
+            
+            // secondplace.textContent = `#2 ${topPlayersArray[1]} . . . . . . . . ${topScoreArray[1]}` 
+            secondGroup();
+
+
+
+        } else {
+            topScoreArray[1] = topScoreArray[0]
+            topPlayersArray[1] = topPlayersArray[0]
+
+            // secondplace.textContent = `#2 ${topPlayersArray[1]} . . . . . . . . ${topScoreArray[1]}` 
+            secondGroup();
+        }
+    }
+
+topScoreArray[0] = totalScore;
+topPlayersArray[0] = player;
+// firstplace.textContent = `#1 ${topPlayersArray[0]} . . . . . . . . ${topScoreArray[0]}`
+firstGroup();
+FPName = player;
+FPScore = totalScore;
+
+
+
+if(LSfirstName !== null && LSfirstScore !== null ){
+    //IF THERE ARE ALREADY 3 SCORES
+        if(FPScore > Number(LSfirstScore)){
+
+            LSthirdName =  LSsecondName;
+            LSthirdScore =  LSsecondScore;
+            localStorage.setItem('num3Name', LSthirdName);
+            localStorage.setItem('num3Score', LSthirdScore);
+
+
+            LSsecondName =  LSfirstName;
+            LSsecondScore =  LSfirstScore;
+            localStorage.setItem('num2Name', LSsecondName);
+            localStorage.setItem('num2Score', LSsecondScore);
+
+
+            LSfirstScore = FPScore;
+            LSfirstName = FPName;
+            localStorage.setItem('num1Name', firstName);
+            localStorage.setItem('num1Score', firstScore);
+
+        }
+} else {
+    //FIRST TIME THERE IS A SCORE
+        LSfirstScore = FPScore;
+        LSfirstName = FPName;
+        localStorage.setItem('num1Name', FPName)
+        localStorage.setItem('num1Score', FPScore)
+}
+
+
+} else if (totalScore <= topScoreArray[0] && totalScore > topScoreArray[1]) {
+if(topScoreArray[1] > 0){
+    topScoreArray[2] = topScoreArray[1]
+    topPlayersArray[2] = topPlayersArray[1]
+
+    // thirdplace.textContent = `#3 ${topPlayersArray[2]} . . . . . . . . ${topScoreArray[2]}` 
+    thirdGroup();
+
+}
+topScoreArray[1] = totalScore;
+topPlayersArray[1] = player;
+
+// secondplace.textContent = `#2 ${topPlayersArray[1]} . . . . . . . . ${topScoreArray[1]}`
+secondGroup();
+
+
+
+} else if (totalScore <= topScoreArray[1] && totalScore > topScoreArray[2]) {
+topScoreArray[2] = totalScore;
+topPlayersArray[2] = player;
+
+// thirdplace.textContent = `#3 ${topPlayersArray[2]} . . . . . . . . ${topScoreArray[2]}`
+thirdGroup();
+} 
+console.log('topScArr --> ', topScoreArray);
+console.log('collectionArr --> ', scoreArray);
+console.log(totalScore);
+
+}
+
+*/ //END OF CODE FOR PRE-LS LEADERBOARD
+
