@@ -73,21 +73,35 @@ const getPlayerName = () => {
 //OPTIMIZED LEADERBOARD #1-#3 FUNCTIONS
 //FN - TO FILL 3RD PLACE IN TABLE
 const thirdGroup = () => {
-    thirdName.textContent = `${LSthirdName}`;
-    thirdScore.textContent = `${LSthirdScore}`;
+    if(LSthirdName !== null){
+        thirdName.textContent = `${LSthirdName}`;
+        thirdScore.textContent = `${LSthirdScore}`;
+    }
 }
 
 // //FN - TO FILL 2ND PLACE IN TABLE
 const secondGroup = () => {
-    secondName.textContent = `${LSsecondName}`;
-    secondScore.textContent = `${LSsecondScore}`;
+    if(LSsecondName !== null){
+        secondName.textContent = `${LSsecondName}`;
+        secondScore.textContent = `${LSsecondScore}`;
+    }
 }
 
 // //FN - TO FILL 1ST PLACE IN TABLE
 const firstGroup = () => {
-    firstName.textContent = `${LSfirstName}`;
-    firstScore.textContent = `${LSfirstScore}`;
+    if(LSfirstName !== null){
+        firstName.textContent = `${LSfirstName}`;
+        firstScore.textContent = `${LSfirstScore}`;
+    }
 }
+
+//FN-TO CHECK IF HIGHSCORE IS EXCEEDED, IF YES, DISPLAY NEW HIGHSCORE
+const isHighScore = () =>{
+    if(LSfirstScore !== null){
+        highScoreDisplay.textContent = LSfirstScore;
+    }
+}
+
 
 // -------------- LOCALSTORAGE VAR SETUP ---------------
 let LSfirstName = localStorage.getItem('num1Name');
@@ -101,7 +115,8 @@ let LSthirdScore = localStorage.getItem('num3Score');
     firstGroup();
     secondGroup();
     thirdGroup();
-    highScoreDisplay.textContent = LSfirstScore;
+    isHighScore();
+    // highScoreDisplay.textContent = LSfirstScore;
 
 //FN - UPDATE WALL OF FAME SCOREBOARD WITH LOCALSTORAGE
 const ranking = () => {
@@ -265,11 +280,6 @@ const updateCurrentScore = () => {
     currentScoreDisplay.style.color = "green";
 }
 
-
-//FN-TO CHECK IF HIGHSCORE IS EXCEEDED, IF YES, DISPLAY NEW HIGHSCORE
-const isHighScore = () =>{
-    highScoreDisplay.textContent = LSfirstScore;
-}
 
 //FN TO DECREMENT SECONDS & DISPLAY RESULTS WHEN TIMEOUT
 const countdown = () =>{
