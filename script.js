@@ -18,6 +18,14 @@ let topPlayersArray = [];
 let topScoreArray = [0,0,0];
 let scoreArray = [];
 
+
+let FPName = "";
+let FPScore = 0;
+let SPName = "";
+let SPScore = 0;
+let TPName = "";
+let TPScore = 0;
+
 // let champion = {
 //     name: topPlayersArray[0],
 //     score: topScoreArray[0]
@@ -60,7 +68,24 @@ let thirdScore = document.querySelector('.third-score');
 //-------------------FUNCTIONS----------------------------
 //GET PLAYER NAME 
 const getPlayerName = () => {
-    let getName = prompt(`hi what's your name?`)
+    let getName = prompt(`Make your mark! <name>`)
+
+    if(getName === "" ) {
+            getName = prompt(`Even ghosts have names. Please enter your name`)
+
+            if((!isNaN(parseInt(getName)))) {
+                getName = prompt(`Try a nickname from A-Z maybe?`)
+            }
+
+    } else if((!isNaN(parseInt(getName)))) {
+            getName = prompt(`Try a nickname from A-Z maybe?`)
+
+            if(getName === "" ) {
+                getName = prompt(`Even ghosts have names. Please enter your name`)
+            }
+
+    }
+
     nameDisplay.textContent = `Now playing: ${getName}`;
     player = getName;
 }
@@ -90,7 +115,7 @@ const ranking = () => {
     scoreArray.unshift(totalScore);
 
     if(totalScore > highScore) {
-        if(topScoreArray[0] > 0){
+            if(topScoreArray[0] > 0){
                 if(topScoreArray[1] > 0){
 
 
@@ -115,13 +140,34 @@ const ranking = () => {
                     // secondplace.textContent = `#2 ${topPlayersArray[1]} . . . . . . . . ${topScoreArray[1]}` 
                     secondGroup();
                 }
-        }
+            }
 
         topScoreArray[0] = totalScore;
         topPlayersArray[0] = player;
-
         // firstplace.textContent = `#1 ${topPlayersArray[0]} . . . . . . . . ${topScoreArray[0]}`
         firstGroup();
+        FPName = player;
+        FPScore = totalScore;
+
+        let LSfirstName = localStorage.getItem('num1Name');
+        let LSfirstScore = localStorage.getItem('num1Score');
+
+        if(LSfirstName !== null && LSfirstScore !== null ){
+                if(FPScore > Number(LSfirstScore)){
+                    LSfirstScore = FPScore;
+                    LSfirstName = FPName;
+                    localStorage.setItem('num1Name', FPName)
+                    localStorage.setItem('num1Score', FPScore)
+                }
+        } else {
+                LSfirstScore = FPScore;
+                LSfirstName = FPName;
+                localStorage.setItem('num1Name', FPName)
+                localStorage.setItem('num1Score', FPScore)
+        }
+
+
+
 
 
 
