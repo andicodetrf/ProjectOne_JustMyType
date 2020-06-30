@@ -14,8 +14,8 @@ let startInterval;
 let highScore;
 let round = 0;
 let player = "";
-let topPlayersArray = [];
-let topScoreArray = [0,0,0];
+// let topPlayersArray = [];
+// let topScoreArray = [0,0,0];
 let scoreArray = [];
 
 
@@ -41,11 +41,10 @@ let firstScore = document.querySelector('.first-score');
 let secondScore = document.querySelector('.second-score');
 let thirdScore = document.querySelector('.third-score');
 
-let leaderName = document.querySelectorAll('.leadername')
-let leaderScore = document.querySelectorAll('.leaderscore')
-
 
 //-------------------FUNCTIONS----------------------------
+
+
 //GET PLAYER NAME 
 const getPlayerName = () => {
     let getName = prompt(`Make your mark! <name>`)
@@ -69,6 +68,18 @@ const getPlayerName = () => {
     nameDisplay.textContent = `Now playing: ${getName}`;
     player = getName;
 }
+
+
+
+// -------------- LOCALSTORAGE VAR SETUP ---------------
+let LSfirstName = localStorage.getItem('num1Name');
+let LSfirstScore = localStorage.getItem('num1Score');
+let LSsecondName = localStorage.getItem('num2Name');
+let LSsecondScore = localStorage.getItem('num2Score');
+let LSthirdName = localStorage.getItem('num3Name');
+let LSthirdScore = localStorage.getItem('num3Score');
+
+
 
 //OPTIMIZED LEADERBOARD #1-#3 FUNCTIONS
 //FN - TO FILL 3RD PLACE IN TABLE
@@ -102,21 +113,6 @@ const isHighScore = () =>{
     }
 }
 
-
-// -------------- LOCALSTORAGE VAR SETUP ---------------
-let LSfirstName = localStorage.getItem('num1Name');
-let LSfirstScore = localStorage.getItem('num1Score');
-let LSsecondName = localStorage.getItem('num2Name');
-let LSsecondScore = localStorage.getItem('num2Score');
-let LSthirdName = localStorage.getItem('num3Name');
-let LSthirdScore = localStorage.getItem('num3Score');
-
-//populate leaderboard when user open browser before gameplay
-    firstGroup();
-    secondGroup();
-    thirdGroup();
-    isHighScore();
-    // highScoreDisplay.textContent = LSfirstScore;
 
 //FN - UPDATE WALL OF FAME SCOREBOARD WITH LOCALSTORAGE
 const ranking = () => {
@@ -361,6 +357,15 @@ const resetTotalScore = () =>{
     totalScore = 0;
     totalScoreDisplay.textContent = totalScore;
 }
+
+
+//------------INITIALIZE PRE-GAMEPLAY--------------
+//populate leaderboard when user open browser before gameplay
+firstGroup();
+secondGroup();
+thirdGroup();
+isHighScore();
+//-------------------------------------------------
 
 //---------------------EVENT LISTENERS----------------------------
 
