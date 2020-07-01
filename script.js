@@ -6,8 +6,7 @@ console.log('>> script-ran <<')
 //12chars25words = ["acquaintance", "spokesperson", "constituency", "intelligence", "jurisdiction", "conglomerate", "architecture", "refrigerator", "anticipation", "prescription", "accumulation", "dermatologic", "effervescent", "prejudicious", "algometrical", "pathological", "disciplinary", "intervention", "intermediate", "disagreement", "advantageous", "civilization", "polysemantic", "altitudinous", "monopolistic"]
 
 //easyArr is 10 chars while medArr is 13 chars
-let easyArr = ["vertebrate", "adulterine", "farfetched", "autocratic", "illustrate", "decolonise", "underprice", "remarkable", "complicate", "dissilient", "mimeograph", "struggling", "circumvent", "unreadable", "undogmatic", "devitalise", "entrancing", "calibrated", "infallible", "treasonous", "commentate", "relentless", "catacorner", "quarantine", "immaculate", "hemophilic", "assignable", "isotropous", "talismanic", "cogitative", "orthopedic", "foreboding", "contiguous", "slithering", "equipotent", "synonymous", "fastidious", "apostatise", "ingratiate", "masquerade", "gregarious", "confiscate", "adjudicate", "collagenic", "vapourific", "caricature", "exfiltrate", "stochastic", "lipotropic", "ascribable"]
-let medArr = ["lackadaisical", "macroscopical", "incorruptible", "irreclaimable", "acculturative", "superstitious", "hypercritical", "gynecological", "transmissible", "unjustifiable", "kaleidoscopic", "anagrammatize", "anachronistic", "differentiate", "unconsecrated", "discretionary", "desynchronize", "unserviceable", " lexicographic", " hypoglycaemic", "disintegrable", "untraversable", "quadrilateral", "reciprocatory", "interrogatory"]
+
 
 // const fixedArray = ["position", "develop", "finish", "coerce", "sick", "preparation", "pin", "resource", "vote", "scheme", "theater", "blonde", "syndrome", "spectrum", "heaven", "present", "pluck", "ridge", "soldier", "liability", "extort", "cross", "equinox", "distributor", "promote", "fisherman", "misplace", "choose", "incredible", "costume", "amputate", "application", "conglomerate", "sanctuary", "dictate", "eaux", "grace", "myth", "architecture", "systematic", "expenditure", "trait", "earthwax", "union", "enemy", "justify", "skilled", "vain", "provision", "sunrise"]
 // let roundArray = ["position", "develop", "finish", "coerce", "sick", "preparation", "pin", "resource", "vote", "scheme", "theater", "blonde", "syndrome", "spectrum", "heaven", "present", "pluck", "ridge", "soldier", "liability", "extort", "cross", "equinox", "distributor", "promote", "fisherman", "misplace", "choose", "incredible", "costume", "amputate", "application", "conglomerate", "sanctuary", "dictate", "eaux", "grace", "myth", "architecture", "systematic", "expenditure", "trait", "earthwax", "union", "enemy", "justify", "skilled", "vain", "provision", "sunrise"]
@@ -16,6 +15,8 @@ let medArr = ["lackadaisical", "macroscopical", "incorruptible", "irreclaimable"
 //-------------------GLOBAL VARIABLES--------------------------
 let isGameStart = false;
 //const fixedArray = ["position", "develop", "finish", "coerce", "sick", "preparation", "pin", "resource", "vote", "scheme", "theater", "blonde", "syndrome", "spectrum", "heaven", "present", "pluck", "ridge", "soldier", "liability", "extort", "cross", "equinox", "distributor", "promote", "fisherman", "misplace", "choose", "incredible", "costume", "amputate", "application", "conglomerate", "sanctuary", "dictate", "eaux", "grace", "myth", "architecture", "systematic", "expenditure", "trait", "earthwax", "union", "enemy", "justify", "skilled", "vain", "provision", "sunrise"]
+let easyArr = ["vertebrate", "adulterine", "farfetched", "autocratic", "illustrate", "decolonise", "underprice", "remarkable", "complicate", "dissilient", "mimeograph", "struggling", "circumvent", "unreadable", "undogmatic", "devitalise", "entrancing", "calibrated", "infallible", "treasonous", "commentate", "relentless", "catacorner", "quarantine", "immaculate", "hemophilic", "assignable", "isotropous", "talismanic", "cogitative", "orthopedic", "foreboding", "contiguous", "slithering", "equipotent", "synonymous", "fastidious", "apostatise", "ingratiate", "masquerade", "gregarious", "confiscate", "adjudicate", "collagenic", "vapourific", "caricature", "exfiltrate", "stochastic", "lipotropic", "ascribable"]
+let medArr = ["lackadaisical", "macroscopical", "incorruptible", "irreclaimable", "acculturative", "superstitious", "hypercritical", "gynecological", "transmissible", "unjustifiable", "kaleidoscopic", "anagrammatize", "anachronistic", "differentiate", "unconsecrated", "discretionary", "desynchronize", "unserviceable", " lexicographic", " hypoglycaemic", "disintegrable", "untraversable", "quadrilateral", "reciprocatory", "interrogatory"]
 let roundArray;
 let usedArray = [];
 let currentScore = 0;
@@ -29,6 +30,7 @@ let player = "";
 // let topPlayersArray = [];
 // let topScoreArray = [0,0,0];
 let scoreArray = [];
+let getName;
 
 
 //-------------------DOM SELECTORS----------------------------
@@ -52,38 +54,50 @@ let thirdName = document.querySelector('.third-name');
 let firstScore = document.querySelector('.first-score');
 let secondScore = document.querySelector('.second-score');
 let thirdScore = document.querySelector('.third-score');
+let playerLevelFirst = document.querySelector('.player-level-first');
+let playerLevelSecond = document.querySelector('.player-level-second');
+let playerLevelThird = document.querySelector('.player-level-third');
 
 let level = document.querySelector('#level')
+
+let modal = document.getElementById("myModal");
+let modalbtn = document.querySelector('.test-modal-btn')
+let modalClose = document.querySelector(".close");
+let inputPlayerName = document.querySelector('.input-player-name')
+let instruct = document.querySelector('.instruct')
 
 
 
 //-------------------FUNCTIONS----------------------------
 
-
-//GET PLAYER NAME 
-const getPlayerName = () => {
-    let getName = prompt(`Make your mark! <name>`)
-
-    if(getName === "" ) {
-            getName = prompt(`Even ghosts have names. Please enter your name`)
-
-            if((!isNaN(parseInt(getName)))) {
-                getName = prompt(`Try a nickname from A-Z maybe?`)
-            }
-
-    } else if((!isNaN(parseInt(getName)))) {
-            getName = prompt(`Try a nickname from A-Z maybe?`)
-
-            if(getName === "" ) {
-                getName = prompt(`Even ghosts have names. Please enter your name`)
-            }
-
-    }
-
-    nameDisplay.textContent = `Now playing: ${getName}`;
-    player = getName;
+const modalForName = () => {
+        modal.style.display = "block";
+        instruct.textContent = "Enter Your Name: "
+        inputPlayerName.value ="";
+        inputPlayerName.focus();
+        
 }
 
+//trim
+//check if name is entered, gamestart = true 
+//GET PLAYER NAME 
+const getPlayerName = () => {
+
+    getName = prompt("Hi, what's your name?")
+        if(getName.trim() =="") {
+            getName = prompt(`Please enter your name`)
+
+        } else if(!isNaN(parseInt(getName))) {
+            getName = prompt(`Try a nickname from A-Z maybe?`)
+
+        } else {
+            player = getName;
+            nameDisplay.textContent = `Now playing: ${player}`;
+            console.log(player)
+
+        }
+
+    }
 
 
 // -------------- LOCALSTORAGE VAR SETUP ---------------
@@ -93,37 +107,44 @@ let LSsecondName = localStorage.getItem('num2Name');
 let LSsecondScore = localStorage.getItem('num2Score');
 let LSthirdName = localStorage.getItem('num3Name');
 let LSthirdScore = localStorage.getItem('num3Score');
+let LSfirstLevel = localStorage.getItem('levelFirst');
+let LSsecondLevel = localStorage.getItem('levelSecond');
+let LSthirdLevel = localStorage.getItem('levelThird');
 
 
 
 //OPTIMIZED LEADERBOARD #1-#3 FUNCTIONS
 //FN - TO FILL 3RD PLACE IN TABLE
 const thirdGroup = () => {
-    if(LSthirdName !== null){
+    if(LSthirdName && LSthirdScore && LSthirdLevel){
         thirdName.textContent = `${LSthirdName}`;
         thirdScore.textContent = `${LSthirdScore}`;
+        playerLevelThird.textContent = `${LSthirdLevel}`;
+        
     }
 }
 
 // //FN - TO FILL 2ND PLACE IN TABLE
 const secondGroup = () => {
-    if(LSsecondName !== null){
+    if(LSsecondName && LSsecondScore && LSsecondLevel){
         secondName.textContent = `${LSsecondName}`;
         secondScore.textContent = `${LSsecondScore}`;
+        playerLevelSecond.textContent = `${LSsecondLevel}`;
     }
 }
 
 // //FN - TO FILL 1ST PLACE IN TABLE
 const firstGroup = () => {
-    if(LSfirstName !== null){
+    if(LSfirstName && LSfirstScore && LSfirstLevel){
         firstName.textContent = `${LSfirstName}`;
         firstScore.textContent = `${LSfirstScore}`;
+        playerLevelFirst.textContent = `${LSfirstLevel}`;
     }
 }
 
 //FN-TO CHECK IF HIGHSCORE IS EXCEEDED, IF YES, DISPLAY NEW HIGHSCORE
 const isHighScore = () =>{
-    if(LSfirstScore !== null){
+    if(LSfirstScore){
         highScoreDisplay.textContent = LSfirstScore;
     }
 }
@@ -135,45 +156,63 @@ const ranking = () => {
     //TRACK INPUT FOR TESTCASES
     scoreArray.unshift(totalScore);
 
-    if(LSfirstName !== null && LSfirstScore !== null ){
+    // if(LSfirstScore !== null){
+    if(LSfirstScore){
         //IF THERE ARE EXISTING SCORES
             if(totalScore > Number(LSfirstScore)){
 
-                if(LSsecondName !== null){
+                //store the array in localstorage, store as string, when get data need to convert(parse)
+                // if(LSsecondName !== null){
+                if(LSsecondName){
                     LSthirdName =  LSsecondName;
                     LSthirdScore =  LSsecondScore;
+                    LSthirdLevel = LSsecondLevel;
                     localStorage.setItem('num3Name', LSthirdName);
                     localStorage.setItem('num3Score', LSthirdScore);
+                    localStorage.setItem('levelThird', LSthirdLevel)
                 }
 
 
                 LSsecondName =  LSfirstName;
                 LSsecondScore =  LSfirstScore;
+                LSsecondLevel = LSfirstLevel;
                 localStorage.setItem('num2Name', LSsecondName);
                 localStorage.setItem('num2Score', LSsecondScore);
+                localStorage.setItem('levelSecond', LSsecondLevel)
 
 
                 LSfirstScore = totalScore;
                 LSfirstName = player;
+                LSfirstLevel =  level.value;
                 localStorage.setItem('num1Name', LSfirstName);
                 localStorage.setItem('num1Score', LSfirstScore);
+                localStorage.setItem('levelFirst', LSfirstLevel);
+
+                
+                resultModal();
 
             } 
 
             else if(totalScore > Number(LSsecondScore) && totalScore <= Number(LSfirstScore)) {
 
-                if(LSsecondScore !== null){
+                // if(LSsecondScore !== null){
+                if(LSsecondName){
                     LSthirdName =  LSsecondName;
-                    LSthirdScore =  LSsecondScore;
+                    LSthirdScore = LSsecondScore;
+                    LSthirdLevel = LSsecondLevel;
                     localStorage.setItem('num3Name', LSthirdName);
                     localStorage.setItem('num3Score', LSthirdScore);
+                    localStorage.setItem('levelThird', LSthirdLevel)
                 }
 
 
                 LSsecondName =  player;
                 LSsecondScore =  totalScore;
+                LSsecondLevel = level.value;
                 localStorage.setItem('num2Name', LSsecondName);
                 localStorage.setItem('num2Score', LSsecondScore);
+                localStorage.setItem('levelSecond', LSsecondLevel)
+
 
             }
 
@@ -181,20 +220,31 @@ const ranking = () => {
 
                 LSthirdName =  player;
                 LSthirdScore =  totalScore;
+                LSthirdLevel = level.value;
                 localStorage.setItem('num3Name', LSthirdName);
                 localStorage.setItem('num3Score', LSthirdScore);
+                localStorage.setItem('levelThird', LSthirdLevel);
+                
 
             }
 
 
     } else {
         //IF LEADERBOARD IS TOTALLY EMPTY
+        if(totalScore){
             LSfirstScore = totalScore;
             LSfirstName = player;
+            LSfirstLevel =  level.value;
             localStorage.setItem('num1Name', LSfirstName)
             localStorage.setItem('num1Score', LSfirstScore)
+            localStorage.setItem('levelFirst', LSfirstLevel);
+
+            resultModal();
+        }
     }
 
+
+//largest number
 
     console.log(localStorage);
 
@@ -310,7 +360,7 @@ const updateCurrentScore = () => {
 
 
 //FN TO DECREMENT SECONDS & DISPLAY RESULTS WHEN TIMEOUT
-const countdown = () =>{
+const countdown = () => {
     if(totalSecs > 0){
         console.log(totalSecs);
         timerDisplay.textContent = totalSecs;
@@ -355,10 +405,10 @@ const displayResult = () => {
 const resultModal = () => {
 
           Swal.fire({
-            title: `Game Over! Your Score : ${totalScore}`,
+            title: `Congrats! New High Score: ${LSfirstScore}`,
             width: 600,
             padding: '3em',
-            background: '#fff',
+            background: '#202020',
             backdrop: `
               rgba(100,100,123,0.4)
               url("../leoclap.gif")
@@ -374,8 +424,8 @@ const resetRound = () => {
     usedArray = [];
     levelSelector();
     // roundArray = fixedArray.slice(0);
-    // totalSecs = 4;
     resetTotalScore();
+    player = "";
 }
 
 //FN TO RESET CURRENT SCORE
@@ -391,6 +441,35 @@ const resetTotalScore = () =>{
     totalScoreDisplay.textContent = totalScore;
 }
 
+//FN TO START GAME
+const startGame = () => {
+    if (player) {
+        isGameStart = true;
+        inputBox.disabled = false;
+        inputBox.focus();
+        generateWord();
+        startInterval = setInterval(countdown, 1000);
+        
+        inputBox.addEventListener('change', function(e){
+            e.stopImmediatePropagation();
+                            
+            // console.log('----INPUTBOX EVENTLISTENER START---')
+            // console.log('Within Change_InputBoxVal ', inputBox.value)
+            // console.log('Within_round_', round);
+
+            checkInputMatch();
+                    
+            // console.log('Within Change_Current Word:', currentWord)
+            // console.log('----INPUTBOX EVENTLISTENER END---')
+
+        });
+                
+        round++;
+        gameInProgress();
+    }
+
+ }
+
 
 //------------INITIALIZE PRE-GAMEPLAY--------------
 //populate leaderboard when user open browser before gameplay
@@ -403,46 +482,27 @@ isHighScore();
 //---------------------EVENT LISTENERS----------------------------
 
 
+
 buttonInit.addEventListener('click', function(){
-        isGameStart = true;
-        inputBox.disabled = false;
-        inputBox.focus();
-
-        resetRound();
-        getPlayerName();
-        generateWord();
-
-        if (isGameStart){
-            startInterval = setInterval(countdown, 1000);
-   
-            inputBox.addEventListener('change', function(e){
-                e.stopImmediatePropagation();
-                    
-                    // console.log('----INPUTBOX EVENTLISTENER START---')
-                    // console.log('Within Change_InputBoxVal ', inputBox.value)
-                    // console.log('Within_round_', round);
-
-                    checkInputMatch();
-            
-                    // console.log('Within Change_Current Word:', currentWord)
-                    // console.log('Within Change_isGameStart:', isGameStart)
-                    // console.log('----INPUTBOX EVENTLISTENER END---')
-
-            });
+        // isGameStart = true;
+        // inputBox.disabled = false;
+        // inputBox.focus();
         
-            round++;
-            gameInProgress();
+        resetRound();
+        // modalForName();
 
-        } 
-    } 
+        getPlayerName();
+        
+        // generateWord();
+
+        startGame();
+
+    }
 )
 
 
 
-
-
-
-
+        
 
 
 
@@ -604,3 +664,131 @@ console.log(totalScore);
 
 */ //END OF CODE FOR PRE-LS LEADERBOARD
 
+
+
+/*GET PLAYER NAME & START EVENT LISTENER CODE BEFORE I BREAK IT WITH NAME-MODAL-BOX
+
+const modalForName = () => {
+        modal.style.display = "block";
+        instruct.textContent = "Enter Your Name: "
+        inputPlayerName.value ="";
+        inputPlayerName.focus();
+        
+}
+
+// inputPlayerName.addEventListener('keypress', function ( event ) {  
+//     let key = event.keyCode;
+//      if (key === 32) {
+//        event.preventDefault();
+//      } else {
+//         inputPlayerName.addEventListener('change', function(e) {
+//                 getName = inputPlayerName.value;
+        
+//                 if ((!isNaN(parseInt(getName)))){
+//                     instruct.textContent = `Try a nickname from A-Z maybe?`
+//                 } else {
+//                     modal.style.display = "none";
+//                     // getPlayerName();
+//                     // return getName;
+//                 }
+
+//             }
+    
+//         )}
+// })
+
+
+
+const getPlayerName = () => {
+
+    getName = prompt("Hi, what's your name?")
+    if(!isNaN(getName)){
+        if(!isNaN(getName)) {
+            getName = prompt(`Please enter your name`)
+
+            if((!isNaN(parseInt(getName)))) {
+                getName = prompt(`Try a nickname from A-Z maybe?`)
+            }
+
+        } else if((!isNaN(parseInt(getName)))) {
+            getName = prompt(`Try a nickname from A-Z maybe?`)
+
+            if(getName === "" ) {
+                getName = prompt(`Please enter your name`)
+            }
+
+        }
+    } else {
+
+        // inputPlayerName.addEventListener('keypress', function ( event ) {  
+        //     let key = event.keyCode;
+        //      if (key === 32) {
+        //        event.preventDefault();
+        //      } else {
+        //         inputPlayerName.addEventListener('change', function(e) {
+        //                 getName = inputPlayerName.value;
+                
+        //                 if ((!isNaN(parseInt(getName)))){
+        //                     instruct.textContent = `Try a nickname from A-Z maybe?`
+        //                 } else {
+        //                     modal.style.display = "none";
+        //                     nameDisplay.textContent = `Now playing: ${getName}`;
+        //                     player = getName;
+                            
+        //                     // return getName;
+        //                 }
+        
+        //             }
+            
+        //         )}
+        // })
+
+        nameDisplay.textContent = `Now playing: ${getName}`;
+        player = getName;
+    }
+
+
+
+}
+
+
+
+
+
+buttonInit.addEventListener('click', function(){
+        isGameStart = true;
+        inputBox.disabled = false;
+        inputBox.focus();
+        
+        resetRound();
+
+        getPlayerName();
+        
+        generateWord();
+
+        //     if (isGameStart){
+        //         startInterval = setInterval(countdown, 1000);
+    
+        //         inputBox.addEventListener('change', function(e){
+        //             e.stopImmediatePropagation();
+                        
+        // //                 // console.log('----INPUTBOX EVENTLISTENER START---')
+        // //                 // console.log('Within Change_InputBoxVal ', inputBox.value)
+        // //                 // console.log('Within_round_', round);
+
+        //                 checkInputMatch();
+                
+        // //                 // console.log('Within Change_Current Word:', currentWord)
+        // //                 // console.log('Within Change_isGameStart:', isGameStart)
+        // //                 // console.log('----INPUTBOX EVENTLISTENER END---')
+
+        //         });
+            
+        //         round++;
+        //         gameInProgress();
+
+        //     }
+        }
+)
+
+*/
