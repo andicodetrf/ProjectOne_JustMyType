@@ -31,7 +31,26 @@ let player = "";
 // let topScoreArray = [0,0,0];
 let scoreArray = [];
 let getName;
+let nameState = 0;
 
+//-----------SOUND FUNCTIONS----------
+
+function playMatch(){
+    let matchSound= new Audio('audio/zapsplat_win1.mp3');
+    matchSound.play();
+}
+
+function playError(){
+    let errorSound = new Audio('audio/zapsplat_error1.mp3');
+    errorSound.play();
+}
+
+function playHighScore(){
+    let highScoreSound = new Audio('audio/zapsplat_highscore.mp3');
+    highScoreSound.play();
+}
+
+//-----------SOUND FUNCTIONS----------
 
 //-------------------DOM SELECTORS----------------------------
 let wordDisplay = document.querySelector('.word-display');
@@ -66,38 +85,64 @@ let modalClose = document.querySelector(".close");
 let inputPlayerName = document.querySelector('.input-player-name')
 let instruct = document.querySelector('.instruct')
 
-
+let enterName = "Enter Your Name: "
+let noBlanks = "Enter a fake name at least!"
+let noNumName = "Try a nickname from A-Z maybe?"
 
 //-------------------FUNCTIONS----------------------------
 
-const modalForName = () => {
+const modalForName = (toPrint) => {
         modal.style.display = "block";
-        instruct.textContent = "Enter Your Name: "
+        instruct.textContent = toPrint
         inputPlayerName.value ="";
         inputPlayerName.focus();
-        
 }
 
-//trim
-//check if name is entered, gamestart = true 
+modalClose.addEventListener('click', function(){
+    modal.style.display = "none";
+})
+
 //GET PLAYER NAME 
 const getPlayerName = () => {
+    modalForName(enterName); 
 
-    getName = prompt("Hi, what's your name?")
-        if(getName.trim() =="") {
-            getName = prompt(`Please enter your name`)
-
-        } else if(!isNaN(parseInt(getName))) {
-            getName = prompt(`Try a nickname from A-Z maybe?`)
-
-        } else {
-            player = getName;
-            nameDisplay.textContent = `Now playing: ${player}`;
-            console.log(player)
-
+    inputPlayerName.addEventListener('keypress', function(ev){
+        if(ev.key === "Enter"){
+            ev.stopImmediatePropagation();
+            getName = inputPlayerName.value;
+            modal.style.display = "none";
+            nameState++
         }
 
-    }
+        if(nameState === 1 && !isGameStart){
+
+            if(getName.trim() == "") {
+                modalForName(noBlanks);
+
+
+            } else if(!isNaN(parseInt(getName))) {
+                modalForName(noNumName);
+        
+
+            } else {
+                isGameStart = true;
+                player = getName;
+                nameDisplay.textContent = `Now playing: ${player}`;
+                console.log(player)
+                startGame();
+                
+            }
+
+
+        console.log('state>> ', nameState)
+ 
+        } 
+
+    nameState = 0;
+
+
+    })
+}
 
 
 // -------------- LOCALSTORAGE VAR SETUP ---------------
@@ -156,13 +201,11 @@ const ranking = () => {
     //TRACK INPUT FOR TESTCASES
     scoreArray.unshift(totalScore);
 
-    // if(LSfirstScore !== null){
     if(LSfirstScore){
         //IF THERE ARE EXISTING SCORES
-            if(totalScore > Number(LSfirstScore)){
+            if(totalScore >= Number(LSfirstScore)){
 
                 //store the array in localstorage, store as string, when get data need to convert(parse)
-                // if(LSsecondName !== null){
                 if(LSsecondName){
                     LSthirdName =  LSsecondName;
                     LSthirdScore =  LSsecondScore;
@@ -193,9 +236,8 @@ const ranking = () => {
 
             } 
 
-            else if(totalScore > Number(LSsecondScore) && totalScore <= Number(LSfirstScore)) {
+            else if(totalScore > Number(LSsecondScore)) {
 
-                // if(LSsecondScore !== null){
                 if(LSsecondName){
                     LSthirdName =  LSsecondName;
                     LSthirdScore = LSsecondScore;
@@ -328,11 +370,13 @@ const checkInputMatch = () => {
     if(isGameStart){
         if(inputBox.value === wordDisplay.textContent){
             console.log('matched');
+            playMatch();
             updateCurrentScore();
             clearInputBox();
             generateWord();
 
         } else {
+            playError();
             console.log('DONT match')
             wordDisplay.classList.add('animate__animated','animate__shakeX')
             setTimeout(clearWordDisplayAnim, 1000);
@@ -403,19 +447,20 @@ const displayResult = () => {
 
 //FN TO FIRE RESULT MODAL
 const resultModal = () => {
+        playHighScore();
 
-          Swal.fire({
-            title: `Congrats! New High Score: ${LSfirstScore}`,
-            width: 600,
-            padding: '3em',
-            background: '#202020',
-            backdrop: `
-              rgba(100,100,123,0.4)
-              url("../leoclap.gif")
-              center top
-              no-repeat
-            `
-          })
+        Swal.fire({
+        title: `Congrats! New High Score: ${LSfirstScore}`,
+        width: 600,
+        padding: '3em',
+        background: '#202020',
+        backdrop: `
+            rgba(100,100,123,0.4)
+            url("../leoclap.gif")
+            center top
+            no-repeat
+        `
+        })
 }
 
 
@@ -443,8 +488,8 @@ const resetTotalScore = () =>{
 
 //FN TO START GAME
 const startGame = () => {
-    if (player) {
-        isGameStart = true;
+    if (player && isGameStart) {
+        // isGameStart = true;
         inputBox.disabled = false;
         inputBox.focus();
         generateWord();
@@ -495,7 +540,7 @@ buttonInit.addEventListener('click', function(){
         
         // generateWord();
 
-        startGame();
+        // startGame();
 
     }
 )

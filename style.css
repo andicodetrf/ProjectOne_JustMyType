@@ -40,6 +40,13 @@ hr {
     background-color: lightgrey;
 }
 
+label {
+  font-size: 22px;
+}
+select {
+  font-size: 20px;
+}
+
 .timer-block, .current-score-block, .total-score-block, .highest-score-block{
     display: flex;
     justify-content: center;
@@ -53,7 +60,7 @@ hr {
 .btn-init{
     padding: 8px 15px;
     font-size: 20px;
-    margin: 20px 0 20px 0;
+    margin: 10px 0 10px 0;
     border-radius: 5px;
     background-color: darkgreen;
     border: 2px solid rgb(13, 36, 41);
@@ -62,25 +69,29 @@ hr {
 
 .hover:hover{
     padding: 10px 17px;
-    margin: 18px 0 18px 0;
-
+    margin: 8px 0 8px 0;
 }
 
-.score-board-block{
-    height: 300px;
+.board-title {
+  margin-bottom: 15px;
 }
 
+table {
+  margin: 0 auto;
+}
 
+td {
+  padding: 0 50px;
+}
   
 body {
     background-color: rgba(13, 16, 34, 1);
-    /* background-color:white; */
     margin: 0px ;
     padding: 0px;
- 
 }
-  
 
+  
+/* MODAL BOX FROM W3 FOR NAME-INPUT */
 /* The Modal (background) */
 .modal {
   display: none; /* Hidden by default */
@@ -105,6 +116,15 @@ body {
   color: black;
 }
 
+.input-player-name {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.instruct {
+  margin-top: 10px;
+}
+
 /* The Close Button */
 .close {
   color: #aaa;
@@ -121,9 +141,61 @@ body {
 }
 
 
+@media screen and (max-width: 400px){
+  .game-title {
+    font-size: 30px;
+    padding-bottom: 0;
+  }
 
-  /* TAKEN FROM MARCELO (MR SMITH) */
-/*   
+  h3 {
+    font-size: 17px;
+  }
+
+  .player-name {
+    font-size: 17px;
+  }
+
+  .word-display {
+    font-size: 35px;
+  }
+
+  label {
+    font-size: 17px;
+  }
+
+  select {
+    font-size: 14px;
+
+  }
+
+  .btn-init{
+      padding: 8px 15px;
+      font-size: 17px;
+      margin: 5px 0 5px 0;
+      border-radius: 5px;
+      background-color: darkgreen;
+      border: 2px solid rgb(13, 36, 41);
+      color: white;
+  }
+
+  .hover:hover{
+    padding: 10px 17px;
+    margin: 3px 0 3px 0;
+  }
+
+  .input-box{
+    margin: 10px 0;
+    padding: 8px 8px;
+    width: 200px;
+    font-size: 17px;
+    border-radius: 5px;
+    background-color: lightyellow;
+  }
+
+}
+
+  /* TAKEN FROM CODEPEN MARCELO (MR SMITH) */
+ /*
   @-webkit-keyframes backgroundAnimate {
     from {
       left: 0;
@@ -220,4 +292,5 @@ body {
     animation-duration: 300s;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
-  } */
+  } 
+  */
