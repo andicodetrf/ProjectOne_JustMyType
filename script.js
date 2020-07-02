@@ -519,7 +519,7 @@ const resultModal = () => {
         background: '#202020',
         backdrop: `
             rgba(100,100,123,0.4)
-            url("../leoclap.gif")
+            url("./leoclap.gif")
             center top
             no-repeat
         `
