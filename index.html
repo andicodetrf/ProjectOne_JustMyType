@@ -9,6 +9,9 @@
             href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"
         />
         <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@3/dark.css" rel="stylesheet">
+        
+        <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> -->
+
         <link rel="stylesheet" href="bootstrap.min.css">
         <link rel="stylesheet" href="style.css">
         <link rel="shortcut icon" type="image/png" href="icons/minikey.png">
@@ -96,41 +99,76 @@
           <hr>
 
           <div class="score-board-block">
-            <h3 class="board-title"><u>KEYBREAKERS</u></h3>
+            <h3 class="board-title"><u>HALL OF FAME</u></h3>
             <!-- <h2 class="score-board"></h2> -->
             <!-- <h3 class="first"></h3>
             <h3 class="second"></h3>
             <h3 class="third"></h3> -->
-            <table class="table table-dark">
+            <div class = "easy-board">
+              <table class="table table-dark">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Player</th>
+                      <th scope="col"></th>
+                      <th scope="col">Easy High Score</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">1</th>
+                      <td class="first-name"></td>
+                      <td class="player-level-first"></td>
+                      <td class="first-score"></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td class="second-name"></td>
+                      <td class="player-level-second"></td>
+                      <td class="second-score"></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">3</th>
+                      <td class="third-name"></td>
+                      <td class="player-level-third"></td>
+                      <td class="third-score"></td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+
+            <div class="med-board" style="display:none">
+              <table class="table table-dark bg-danger">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">Player</th>
-                    <th scope="col">Level</th>
-                    <th scope="col">High Score</th>
+                    <th scope="col"></th>
+                    <th scope="col">Med High Score</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <th scope="row">1</th>
-                    <td class="first-name leadername"></td>
-                    <td class="player-level-first"></td>
-                    <td class="first-score leaderscore"></td>
+                    <td class="med-first-name"></td>
+                    <td class="med-player-level-first"></td>
+                    <td class="med-first-score"></td>
                   </tr>
                   <tr>
                     <th scope="row">2</th>
-                    <td class="second-name leadername"></td>
-                    <td class="player-level-second"></td>
-                    <td class="second-score leaderscore"></td>
+                    <td class="med-second-name"></td>
+                    <td class="med-player-level-second"></td>
+                    <td class="med-second-score"></td>
                   </tr>
                   <tr>
                     <th scope="row">3</th>
-                    <td class="third-name leadername"></td>
-                    <td class="player-level-third"></td>
-                    <td class="third-score leaderscore"></td>
+                    <td class="med-third-name"></td>
+                    <td class="med-player-level-third"></td>
+                    <td class="med-third-score"></td>
                   </tr>
                 </tbody>
               </table>
+            </div>
 
          </div>
 
