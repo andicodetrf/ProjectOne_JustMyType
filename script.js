@@ -7,14 +7,11 @@ console.log('>> script-ran <<')
 
 //easyArr is 10 chars while medArr is 13 chars
 
-
 // const fixedArray = ["position", "develop", "finish", "coerce", "sick", "preparation", "pin", "resource", "vote", "scheme", "theater", "blonde", "syndrome", "spectrum", "heaven", "present", "pluck", "ridge", "soldier", "liability", "extort", "cross", "equinox", "distributor", "promote", "fisherman", "misplace", "choose", "incredible", "costume", "amputate", "application", "conglomerate", "sanctuary", "dictate", "eaux", "grace", "myth", "architecture", "systematic", "expenditure", "trait", "earthwax", "union", "enemy", "justify", "skilled", "vain", "provision", "sunrise"]
 // let roundArray = ["position", "develop", "finish", "coerce", "sick", "preparation", "pin", "resource", "vote", "scheme", "theater", "blonde", "syndrome", "spectrum", "heaven", "present", "pluck", "ridge", "soldier", "liability", "extort", "cross", "equinox", "distributor", "promote", "fisherman", "misplace", "choose", "incredible", "costume", "amputate", "application", "conglomerate", "sanctuary", "dictate", "eaux", "grace", "myth", "architecture", "systematic", "expenditure", "trait", "earthwax", "union", "enemy", "justify", "skilled", "vain", "provision", "sunrise"]
 
-
 //-------------------GLOBAL VARIABLES--------------------------
 let isGameStart = false;
-//const fixedArray = ["position", "develop", "finish", "coerce", "sick", "preparation", "pin", "resource", "vote", "scheme", "theater", "blonde", "syndrome", "spectrum", "heaven", "present", "pluck", "ridge", "soldier", "liability", "extort", "cross", "equinox", "distributor", "promote", "fisherman", "misplace", "choose", "incredible", "costume", "amputate", "application", "conglomerate", "sanctuary", "dictate", "eaux", "grace", "myth", "architecture", "systematic", "expenditure", "trait", "earthwax", "union", "enemy", "justify", "skilled", "vain", "provision", "sunrise"]
 let easyArr = ["vertebrate", "adulterine", "farfetched", "autocratic", "illustrate", "decolonise", "underprice", "remarkable", "complicate", "dissilient", "mimeograph", "struggling", "circumvent", "unreadable", "undogmatic", "devitalise", "entrancing", "calibrated", "infallible", "treasonous", "commentate", "relentless", "catacorner", "quarantine", "immaculate", "hemophilic", "assignable", "isotropous", "talismanic", "cogitative", "orthopedic", "foreboding", "contiguous", "slithering", "equipotent", "synonymous", "fastidious", "apostatise", "ingratiate", "masquerade", "gregarious", "confiscate", "adjudicate", "collagenic", "vapourific", "caricature", "exfiltrate", "stochastic", "lipotropic", "ascribable"]
 let medArr = ["lackadaisical", "macroscopical", "incorruptible", "irreclaimable", "acculturative", "superstitious", "hypercritical", "gynecological", "transmissible", "unjustifiable", "kaleidoscopic", "anagrammatize", "anachronistic", "differentiate", "unconsecrated", "discretionary", "desynchronize", "unserviceable", " lexicographic", " hypoglycaemic", "disintegrable", "untraversable", "quadrilateral", "reciprocatory", "interrogatory"]
 let roundArray;
@@ -77,10 +74,21 @@ let playerLevelFirst = document.querySelector('.player-level-first');
 let playerLevelSecond = document.querySelector('.player-level-second');
 let playerLevelThird = document.querySelector('.player-level-third');
 
+
+let medFirstName = document.querySelector('.med-first-name');
+let medSecondName = document.querySelector('.med-second-name');
+let medThirdName = document.querySelector('.med-third-name');
+let medFirstScore = document.querySelector('.med-first-score');
+let medSecondScore = document.querySelector('.med-second-score');
+let medThirdScore = document.querySelector('.med-third-score');
+let medPlayerLevelFirst = document.querySelector('.med-player-level-first');
+let medPlayerLevelSecond = document.querySelector('.med-player-level-second');
+let medPlayerLevelThird = document.querySelector('.med-player-level-third');
+
 let level = document.querySelector('#level')
 
+
 let modal = document.getElementById("myModal");
-let modalbtn = document.querySelector('.test-modal-btn')
 let modalClose = document.querySelector(".close");
 let inputPlayerName = document.querySelector('.input-player-name')
 let instruct = document.querySelector('.instruct')
@@ -145,159 +153,385 @@ const getPlayerName = () => {
 }
 
 
+const fixTableNull = () =>{
+    if(firstName.textContent === null || firstName.textContent === "null"){
+        firstName.textContent = "";
+        firstScore.textContent = "";
+    }
+    if(secondName.textContent === null || secondName.textContent === "null"){
+        secondName.textContent = "";
+        secondScore.textContent = "";
+    }
+    if(thirdName.textContent === null || thirdName.textContent === "null"){
+        thirdName.textContent = "";
+        thirdScore.textContent = "";
+    }
+    if(medFirstName.textContent === null || medFirstName.textContent === "null"){
+        medFirstName.textContent = "";
+        medFirstScore.textContent = "";
+    }
+
+    if(medSecondName.textContent === null || medSecondName.textContent === "null"){
+        medSecondName.textContent = "";
+        medSecondScore.textContent = "";
+    }
+    if(medThirdName.textContent === null || medThirdName.textContent === "null"){
+        medThirdName.textContent = "";
+        medThirdScore.textContent = "";
+    }
+
+}
+
+
 // -------------- LOCALSTORAGE VAR SETUP ---------------
-let LSfirstName = localStorage.getItem('num1Name');
-let LSfirstScore = localStorage.getItem('num1Score');
-let LSsecondName = localStorage.getItem('num2Name');
-let LSsecondScore = localStorage.getItem('num2Score');
-let LSthirdName = localStorage.getItem('num3Name');
-let LSthirdScore = localStorage.getItem('num3Score');
-let LSfirstLevel = localStorage.getItem('levelFirst');
-let LSsecondLevel = localStorage.getItem('levelSecond');
-let LSthirdLevel = localStorage.getItem('levelThird');
+// let LSfirstName = localStorage.getItem('num1Name');
+// let LSfirstScore = localStorage.getItem('num1Score');
+// let LSsecondName = localStorage.getItem('num2Name');
+// let LSsecondScore = localStorage.getItem('num2Score');
+// let LSthirdName = localStorage.getItem('num3Name');
+// let LSthirdScore = localStorage.getItem('num3Score');
+// let LSfirstLevel = localStorage.getItem('levelFirst');
+// let LSsecondLevel = localStorage.getItem('levelSecond');
+// let LSthirdLevel = localStorage.getItem('levelThird');
 
 
 
-//OPTIMIZED LEADERBOARD #1-#3 FUNCTIONS
-//FN - TO FILL 3RD PLACE IN TABLE
-const thirdGroup = () => {
-    if(LSthirdName && LSthirdScore && LSthirdLevel){
-        thirdName.textContent = `${LSthirdName}`;
-        thirdScore.textContent = `${LSthirdScore}`;
-        playerLevelThird.textContent = `${LSthirdLevel}`;
+//EASYTIER - LS VARS ----
+let LSEfirstName = localStorage.getItem('eFPName');
+let LSEfirstScore = localStorage.getItem('eFPScore');
+let LSEsecondName = localStorage.getItem('eSPName') 
+let LSEsecondScore = localStorage.getItem('eSPScore')
+let LSEthirdName = localStorage.getItem('eTPName') 
+let LSEthirdScore = localStorage.getItem('eTPScore') 
+// let LSELevel = localStorage.getItem('levelEasy') 
+
+let easyTopName = [LSEfirstName, LSEsecondName, LSEthirdName]
+let easyTopScore = [LSEfirstScore, LSEsecondScore, LSEthirdScore]
+
+//EASYTIER - DISPLAY
+const eThirdGroup = () => {
+    if(localStorage.getItem('eTPName')){
+
+        thirdName.textContent = `${localStorage.getItem('eTPName')}`;
+        thirdScore.textContent = `${localStorage.getItem('eTPScore')}`;
+        // playerLevelThird.textContent = `${localStorage.getItem('levelEasy')}`;
         
     }
 }
 
 // //FN - TO FILL 2ND PLACE IN TABLE
-const secondGroup = () => {
-    if(LSsecondName && LSsecondScore && LSsecondLevel){
-        secondName.textContent = `${LSsecondName}`;
-        secondScore.textContent = `${LSsecondScore}`;
-        playerLevelSecond.textContent = `${LSsecondLevel}`;
+const eSecondGroup = () => {
+    console.log(localStorage.getItem('eSPName'))
+
+    if(localStorage.getItem('eSPName')){
+        secondName.textContent = `${localStorage.getItem('eSPName')}`;
+        secondScore.textContent = `${localStorage.getItem('eSPScore')}`;
+        // playerLevelSecond.textContent = `${localStorage.getItem('levelEasy')}`;
+    }
+
+}
+
+// //FN - TO FILL 1ST PLACE IN TABLE
+const eFirstGroup = () => {
+    console.log('efpname ' , localStorage.getItem('eFPName'));
+    if(localStorage.getItem('eFPName')){
+       
+        firstName.textContent = `${localStorage.getItem('eFPName')}`;
+        firstScore.textContent = `${localStorage.getItem('eFPScore')}`;
+        // playerLevelFirst.textContent = `${localStorage.getItem('levelEasy')}`;
+    }
+
+}
+
+const isEasyHighScore = () =>{
+    if(localStorage.getItem('eFPScore')){
+        highScoreDisplay.textContent = localStorage.getItem('eFPScore');
+    }
+}
+
+
+function rankingEasy(num, name) {
+    console.log("LSEfirstName1", LSEfirstName)
+        if (num >= easyTopScore[0]){
+            easyTopScore.splice(0, 0, num);
+            easyTopName.splice(0, 0, name);
+            easyTopScore.pop();
+            easyTopName.pop();
+            resultModal();
+        } else if(num > easyTopScore[1]) {
+            easyTopScore.splice(1, 0, num);
+            easyTopName.splice(1, 0, name);
+            easyTopScore.pop();
+            easyTopName.pop();
+        } else if (num > easyTopScore[2]) {
+            easyTopScore.splice(2, 0, num);
+            easyTopName.splice(2, 0, name);
+            easyTopScore.pop();
+            easyTopName.pop();
+        }
+
+        LSEfirstScore = localStorage.setItem('eFPScore', easyTopScore[0])
+        LSEfirstName = localStorage.setItem('eFPName', easyTopName[0])
+        LSEsecondScore = localStorage.setItem('eSPScore', easyTopScore[1])
+        LSEsecondName =  localStorage.setItem('eSPName', easyTopName[1])
+        LSEthirdScore = localStorage.setItem('eTPScore', easyTopScore[2])
+        LSEthirdName = localStorage.setItem('eTPName', easyTopName[2])
+
+
+        console.log("LSEfirstName2", localStorage.getItem('eFPName'))
+        console.log(level.value)
+        // LSELevel = localStorage.setItem('levelEasy', level.value)
+
+
+
+        // location.reload();
+        console.log("LSEfirstName3", LSEfirstName)
+        eFirstGroup();
+        eSecondGroup();
+        eThirdGroup();
+        isEasyHighScore();
+
+
+        console.log("LSEfirstName4", LSEfirstName)
+        console.log(easyTopScore);
+        console.log(easyTopName); 
+        console.log(localStorage);
+
+}
+
+
+let LSMfirstName = localStorage.getItem('mFPName');
+let LSMfirstScore = localStorage.getItem('mFPScore');
+let LSMsecondName = localStorage.getItem('mSPName');
+let LSMsecondScore = localStorage.getItem('mSPScore');
+let LSMthirdName = localStorage.getItem('mTPName');
+let LSMthirdScore = localStorage.getItem('mTPScore');
+// let LSMLevel = localStorage.getItem('levelMed');
+
+let medTopName = [LSMfirstName, LSMsecondName, LSMthirdName]
+let medTopScore = [LSMfirstScore, LSMsecondScore, LSMthirdScore]
+
+//EASYTIER - DISPLAY
+const mThirdGroup = () => {
+    if(localStorage.getItem('mTPName')){
+        medThirdName.textContent = `${localStorage.getItem('mTPName')}`;
+        medThirdScore.textContent = `${localStorage.getItem('mTPScore')}`;
+        // medPlayerLevelThird.textContent = `${localStorage.getItem('levelMed')}`;
+    }
+}
+
+// //FN - TO FILL 2ND PLACE IN TABLE
+const mSecondGroup = () => {
+    if(localStorage.getItem('mSPName')){
+        medSecondName.textContent = `${localStorage.getItem('mSPName')}`;
+        medSecondScore.textContent = `${localStorage.getItem('mSPScore')}`;
+        // medPlayerLevelSecond.textContent = `${localStorage.getItem('levelMed')}`;
     }
 }
 
 // //FN - TO FILL 1ST PLACE IN TABLE
-const firstGroup = () => {
-    if(LSfirstName && LSfirstScore && LSfirstLevel){
-        firstName.textContent = `${LSfirstName}`;
-        firstScore.textContent = `${LSfirstScore}`;
-        playerLevelFirst.textContent = `${LSfirstLevel}`;
+const mFirstGroup = () => {
+    console.log('mfpname ' , localStorage.getItem('mFPName'));
+    if(localStorage.getItem('mFPName')){
+        medFirstName.textContent = `${localStorage.getItem('mFPName')}`;
+        medFirstScore.textContent = `${localStorage.getItem('mFPScore')}`;
+        // medPlayerLevelFirst.textContent = `${localStorage.getItem('levelMed')}`;
     }
 }
+
+const isMedHighScore = () =>{
+    if(localStorage.getItem('mFPScore')){
+        highScoreDisplay.textContent = localStorage.getItem('mFPScore');
+    }
+}
+
+
+function rankingMed(num, name) {
+
+        if (num >= medTopScore[0]){
+            medTopScore.splice(0, 0, num);
+            medTopName.splice(0, 0, name);
+            medTopScore.pop();
+            medTopName.pop();
+            resultModal();
+        } else if(num > medTopScore[1]) {
+            medTopScore.splice(1, 0, num);
+            medTopName.splice(1, 0, name);
+            medTopScore.pop();
+            medTopName.pop();
+        } else if (num > medTopScore[2]) {
+            medTopScore.splice(2, 0, num);
+            medTopName.splice(2, 0, name);
+            medTopScore.pop();
+            medTopName.pop();
+        }
+
+
+        LSMfirstScore = localStorage.setItem('mFPScore', medTopScore[0])
+        LSMfirstName = localStorage.setItem('mFPName', medTopName[0])
+
+        LSMsecondScore = localStorage.setItem('mSPScore', medTopScore[1])
+        LSMsecondName =  localStorage.setItem('mSPName', medTopName[1])
+        
+        LSMthirdScore = localStorage.setItem('mTPScore', medTopScore[2])
+        LSMthirdName = localStorage.setItem('mTPName', medTopName[2])
+
+        // LSMLevel = localStorage.setItem('levelMed', level.value)
+
+        mFirstGroup();
+        mSecondGroup();
+        mThirdGroup();
+        isMedHighScore();
+
+        console.log(medTopScore);
+        console.log(medTopName); 
+        console.log(localStorage);
+
+}
+
+
+
+
+//OPTIMIZED LEADERBOARD #1-#3 FUNCTIONS
+//FN - TO FILL 3RD PLACE IN TABLE
+// const thirdGroup = () => {
+//     if(LSthirdName && LSthirdScore && LSthirdLevel){
+//         thirdName.textContent = `${LSthirdName}`;
+//         thirdScore.textContent = `${LSthirdScore}`;
+//         playerLevelThird.textContent = `${LSthirdLevel}`;
+        
+//     }
+// }
+
+// // //FN - TO FILL 2ND PLACE IN TABLE
+// const secondGroup = () => {
+//     if(LSsecondName && LSsecondScore && LSsecondLevel){
+//         secondName.textContent = `${LSsecondName}`;
+//         secondScore.textContent = `${LSsecondScore}`;
+//         playerLevelSecond.textContent = `${LSsecondLevel}`;
+//     }
+// }
+
+// // //FN - TO FILL 1ST PLACE IN TABLE
+// const firstGroup = () => {
+//     if(LSfirstName && LSfirstScore && LSfirstLevel){
+//         firstName.textContent = `${LSfirstName}`;
+//         firstScore.textContent = `${LSfirstScore}`;
+//         playerLevelFirst.textContent = `${LSfirstLevel}`;
+//     }
+// }
 
 //FN-TO CHECK IF HIGHSCORE IS EXCEEDED, IF YES, DISPLAY NEW HIGHSCORE
-const isHighScore = () =>{
-    if(LSfirstScore){
-        highScoreDisplay.textContent = LSfirstScore;
-    }
-}
+// const isHighScore = () =>{
+//     if(LSfirstScore){
+//         highScoreDisplay.textContent = LSfirstScore;
+//     }
+// }
 
 
-//FN - UPDATE WALL OF FAME SCOREBOARD WITH LOCALSTORAGE
-const ranking = () => {
+// //FN - UPDATE WALL OF FAME SCOREBOARD WITH LOCALSTORAGE
+// const ranking = () => {
 
-    //TRACK INPUT FOR TESTCASES
-    scoreArray.unshift(totalScore);
+//     //TRACK INPUT FOR TESTCASES
+//     scoreArray.unshift(totalScore);
 
-    if(LSfirstScore){
-        //IF THERE ARE EXISTING SCORES
-            if(totalScore >= Number(LSfirstScore)){
+//     if(LSfirstScore){
+//         //IF THERE ARE EXISTING SCORES
+//             if(totalScore >= Number(LSfirstScore)){
 
-                //store the array in localstorage, store as string, when get data need to convert(parse)
-                if(LSsecondName){
-                    LSthirdName =  LSsecondName;
-                    LSthirdScore =  LSsecondScore;
-                    LSthirdLevel = LSsecondLevel;
-                    localStorage.setItem('num3Name', LSthirdName);
-                    localStorage.setItem('num3Score', LSthirdScore);
-                    localStorage.setItem('levelThird', LSthirdLevel)
-                }
-
-
-                LSsecondName =  LSfirstName;
-                LSsecondScore =  LSfirstScore;
-                LSsecondLevel = LSfirstLevel;
-                localStorage.setItem('num2Name', LSsecondName);
-                localStorage.setItem('num2Score', LSsecondScore);
-                localStorage.setItem('levelSecond', LSsecondLevel)
+//                 //store the array in localstorage, store as string, when get data need to convert(parse)
+//                 if(LSsecondName){
+//                     LSthirdName =  LSsecondName;
+//                     LSthirdScore =  LSsecondScore;
+//                     LSthirdLevel = LSsecondLevel;
+//                     localStorage.setItem('num3Name', LSthirdName);
+//                     localStorage.setItem('num3Score', LSthirdScore);
+//                     localStorage.setItem('levelThird', LSthirdLevel)
+//                 }
 
 
-                LSfirstScore = totalScore;
-                LSfirstName = player;
-                LSfirstLevel =  level.value;
-                localStorage.setItem('num1Name', LSfirstName);
-                localStorage.setItem('num1Score', LSfirstScore);
-                localStorage.setItem('levelFirst', LSfirstLevel);
+//                 LSsecondName =  LSfirstName;
+//                 LSsecondScore =  LSfirstScore;
+//                 LSsecondLevel = LSfirstLevel;
+//                 localStorage.setItem('num2Name', LSsecondName);
+//                 localStorage.setItem('num2Score', LSsecondScore);
+//                 localStorage.setItem('levelSecond', LSsecondLevel)
+
+
+//                 LSfirstScore = totalScore;
+//                 LSfirstName = player;
+//                 LSfirstLevel =  level.value;
+//                 localStorage.setItem('num1Name', LSfirstName);
+//                 localStorage.setItem('num1Score', LSfirstScore);
+//                 localStorage.setItem('levelFirst', LSfirstLevel);
 
                 
-                resultModal();
+//                 resultModal();
 
-            } 
+//             } 
 
-            else if(totalScore > Number(LSsecondScore)) {
+//             else if(totalScore > Number(LSsecondScore)) {
 
-                if(LSsecondName){
-                    LSthirdName =  LSsecondName;
-                    LSthirdScore = LSsecondScore;
-                    LSthirdLevel = LSsecondLevel;
-                    localStorage.setItem('num3Name', LSthirdName);
-                    localStorage.setItem('num3Score', LSthirdScore);
-                    localStorage.setItem('levelThird', LSthirdLevel)
-                }
-
-
-                LSsecondName =  player;
-                LSsecondScore =  totalScore;
-                LSsecondLevel = level.value;
-                localStorage.setItem('num2Name', LSsecondName);
-                localStorage.setItem('num2Score', LSsecondScore);
-                localStorage.setItem('levelSecond', LSsecondLevel)
+//                 if(LSsecondName){
+//                     LSthirdName =  LSsecondName;
+//                     LSthirdScore = LSsecondScore;
+//                     LSthirdLevel = LSsecondLevel;
+//                     localStorage.setItem('num3Name', LSthirdName);
+//                     localStorage.setItem('num3Score', LSthirdScore);
+//                     localStorage.setItem('levelThird', LSthirdLevel)
+//                 }
 
 
-            }
+//                 LSsecondName =  player;
+//                 LSsecondScore =  totalScore;
+//                 LSsecondLevel = level.value;
+//                 localStorage.setItem('num2Name', LSsecondName);
+//                 localStorage.setItem('num2Score', LSsecondScore);
+//                 localStorage.setItem('levelSecond', LSsecondLevel)
 
-            else if(totalScore > Number(LSthirdScore)) {
 
-                LSthirdName =  player;
-                LSthirdScore =  totalScore;
-                LSthirdLevel = level.value;
-                localStorage.setItem('num3Name', LSthirdName);
-                localStorage.setItem('num3Score', LSthirdScore);
-                localStorage.setItem('levelThird', LSthirdLevel);
+//             }
+
+//             else if(totalScore > Number(LSthirdScore)) {
+
+//                 LSthirdName =  player;
+//                 LSthirdScore =  totalScore;
+//                 LSthirdLevel = level.value;
+//                 localStorage.setItem('num3Name', LSthirdName);
+//                 localStorage.setItem('num3Score', LSthirdScore);
+//                 localStorage.setItem('levelThird', LSthirdLevel);
                 
 
-            }
+//             }
 
 
-    } else {
-        //IF LEADERBOARD IS TOTALLY EMPTY
-        if(totalScore){
-            LSfirstScore = totalScore;
-            LSfirstName = player;
-            LSfirstLevel =  level.value;
-            localStorage.setItem('num1Name', LSfirstName)
-            localStorage.setItem('num1Score', LSfirstScore)
-            localStorage.setItem('levelFirst', LSfirstLevel);
+//     } else {
+//         //IF LEADERBOARD IS TOTALLY EMPTY
+//         if(totalScore){
+//             LSfirstScore = totalScore;
+//             LSfirstName = player;
+//             LSfirstLevel =  level.value;
+//             localStorage.setItem('num1Name', LSfirstName)
+//             localStorage.setItem('num1Score', LSfirstScore)
+//             localStorage.setItem('levelFirst', LSfirstLevel);
 
-            resultModal();
-        }
-    }
+//             resultModal();
+//         }
+//     }
 
 
-//largest number
+// //largest number
 
-    console.log(localStorage);
+//     console.log(localStorage);
 
-    //localStorage array is doing unshift rather than push - just fyi
+//     //localStorage array is doing unshift rather than push - just fyi
 
-    //populate leaderboard
-    firstGroup();
-    secondGroup();
-    thirdGroup();
+//     //populate leaderboard
+//     firstGroup();
+//     secondGroup();
+//     thirdGroup();
 
-}
+// }
 
 
 //BUTTON DISABLED WHEN GAME IN PROGRESS
@@ -322,6 +556,27 @@ const gameToStartBtn = () => {
 const completedWords = () => {
     wordDisplay.textContent = "CONGRATS YOU DID ALL THE WORDS"
 }
+
+
+
+level.addEventListener('change', () =>{
+
+    let easyboard = document.querySelector('.easy-board')
+    let medboard = document.querySelector('.med-board')
+    if(level.value === "easy") {
+        medboard.style.display = "none";
+        easyboard.style.display = "block";
+        isEasyHighScore();
+      
+    } else if(level.value === "medium"){
+        easyboard.style.display = "none";
+        medboard.style.display = "block";
+        isMedHighScore();
+        mFirstGroup();
+        mSecondGroup();
+        mThirdGroup();
+    }
+})
 
 
 const levelSelector = () => {
@@ -441,8 +696,14 @@ const countdown = () => {
 const displayResult = () => {
     totalScore = currentScore
     totalScoreDisplay.textContent = totalScore;
-    ranking();
-    isHighScore();
+    if(level.value == "easy"){
+        rankingEasy(totalScore, player);
+    } else {
+        rankingMed(totalScore, player);
+    }
+
+    fixTableNull();
+    
 }
 
 //FN TO FIRE RESULT MODAL
@@ -450,7 +711,7 @@ const resultModal = () => {
         playHighScore();
 
         Swal.fire({
-        title: `Congrats! New High Score: ${LSfirstScore}`,
+        title: `Congrats! New High Score: ${totalScore}`,
         width: 600,
         padding: '3em',
         background: '#202020',
@@ -518,10 +779,12 @@ const startGame = () => {
 
 //------------INITIALIZE PRE-GAMEPLAY--------------
 //populate leaderboard when user open browser before gameplay
-firstGroup();
-secondGroup();
-thirdGroup();
-isHighScore();
+
+    eFirstGroup();
+    eSecondGroup();
+    eThirdGroup();
+    isEasyHighScore()
+
 //-------------------------------------------------
 
 //---------------------EVENT LISTENERS----------------------------
