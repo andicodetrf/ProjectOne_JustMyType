@@ -77,7 +77,7 @@ select {
 }
 
 .board-title {
-  margin-bottom: 15px;
+  margin-bottom: 30px;
 }
 
 table {
@@ -146,7 +146,7 @@ body {
 
 
 footer{
-  margin-top: 40px;
+  padding-top: 15px;
   padding-bottom: 15px;
   text-align: center;
 }
@@ -209,7 +209,7 @@ footer{
 
 }
 
-  /* TAKEN FROM CODEPEN MARCELO (MR SMITH) */
+  /* TAKEN FROM CODEPEN MARCELO (MR SMITH) BUT REPLACE WITH OWN BG IMAGE */
  
   @-webkit-keyframes backgroundAnimate {
     from {
@@ -255,8 +255,9 @@ footer{
     }
   }
   
+
   #back {
-    background: url(http://www.tranexnet.com/img/back.png) repeat 20% 20%;
+    background: url(tilesbg.jpg) repeat 20% 20%;
     position: fixed;
     top: 0;
     left: 0;
@@ -282,8 +283,9 @@ footer{
     animation-iteration-count: infinite;
   }
   
-  #front {
-    background: url(http://www.tranexnet.com/img/front.png) repeat 35% 35%;
+  /* #front {
+    background: url(tilesbg.jpg) repeat 35% 35%;
+    background-size: cover;
     position: fixed;
     top: 0;
     left: 0;
@@ -307,5 +309,6 @@ footer{
     animation-duration: 300s;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
-  } 
+  }  */
   
+   
