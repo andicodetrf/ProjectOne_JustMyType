@@ -5,10 +5,10 @@ This is a Speed-Typing Game.
 Link to Game: [Just My Type](https://andicodetrf.github.io/ProjectOne_JustMyType/)
 
 #### Game Sequence & Objectives
-1. Player starts the game by clicking in the start button.
+1. Player starts the game by clicking the start button.
 2. Modal prompt appears for Player to enter his/her name. When a valid name (text) is entered, the modal prompt closes and the game begins. 
-3. A word is displayed. Player is given 4 seconds to complete typing the same word. If the word-input matches within 4 seconds, a point is added to Player's current score, a new word will be displayed and the timer resets to 4 seconds. 
-4. If the word-input does not match, the player will be notified by the animated displayed word and the player would need to correct the word-input before the timer is up. 
+3. The game begins by displaying a word. Player is given 4 seconds to complete typing the same word. If the word-input matches within 4 seconds, a point is added to Player's current score, a new word will be displayed and the timer resets to 4 seconds. 
+4. If the word-input does not match, the player will be notified by the wiggling animation of displayed word and the player would need to correct the word-input before the timer is up. 
 5. If the timer is up, the game ends. Player will be notified on his/her overall score. 
 6. The game objective is to gain the highest score possible. 
 
@@ -28,7 +28,7 @@ Link to Game: [Just My Type](https://andicodetrf.github.io/ProjectOne_JustMyType
 
 ## Delivery:
 #### Minimum Viable Product Features
-- A 50-words array where word is randomly selected/displayed.  
+- A 50-words array with its word randomly selected/displayed.  
 - Start button, disable button once game starts. Enable Start button once game ends.
 - Enable input box once game starts, disable input box when game ends / has not started. 
 - Display previous gameplay highest score (high score).
@@ -109,10 +109,34 @@ Link to Game: [Just My Type](https://andicodetrf.github.io/ProjectOne_JustMyType
 4. Animation.css for word-wiggle due to word mismatch 
 5. Sweetalert2 modal box for new high score
 6. Bootstrap4 for Leaderboard
-7. Sourced CSS background animation code from codepen Marcelo (Mr. Smith). Replaced sourced image with own-sourced image.
+7. Sourced CSS background animation code from [codepen Marcelo (Mr. Smith)](https://codepen.io/Mr_Smith/details/YPLoKW).  Replaced sourced image with own-sourced image.
 
 
 #### Bugs & Issues Faced
+##### Resolved:
+1. Round 2 onwards, there seem to be multiple events with each word-input which evaluate both IF and ELSE conditions in check-word-match function. The first cycle somehow registers an empty input from the input box, goes into ELSE causing display word to wiggle. The second cycle registers player's word input and goes into IF. Word-match evaluation and scoring would still work with this bug but the word will wiggle regardless of word-match or not.
+    - Resolved: using event.StopImmediatePropagation() method stops the rest of the event handlers from being executed. From MDN: The stopImmediatePropagation() method of the Event interface prevents other listeners of the same event from being called. From MDN, "If several listeners are attached to the same element for the same event type, they are called in the order in which they were added. If stopImmediatePropagation() is invoked during one such call, no remaining listeners will be called."
+
+2. Local storage implementation - player's score does not get displayed immediately in leaderboard. It would only display if page refreshes/reload. 
+    - Resolved: When page reloads, localstorage var setup gets all item. in ranking function after gameplay, the localstorage var sets items based on gameplay score. Leaderboard display functions (after gameplay) was initally using those localstorage "setItem" variables. The problem was resolved by modifying leaderboard display functions - replace localstorage "setItem" variables with local storage getItems. 
+
+3. Player could switch difficulty level in the middle of a gameplay and the game would still continue. 
+    - Resolved: Disable dropdown level selection when game in progress. 
+
+4. The earlier game design uses browser prompt box for name input. It was capable of pausing all browser events until the prompt box is closed, then game begins. In a later version, a modal box is used to replace browser prompt box however modal box does not pause other events (start game function was tied to start button event listener) causing game to run even when modal box was still opened. 
+    - Resolved: Rearrange game execution function to let it be called only after modal box closes. 
+
+5. Game starts if player typed in some text name and closes the modal box via close (x) button (clicking x is supposed to cancel the game).
+    - Resolved: The original input-box in modal box was set to listen for "change". The problem was resolved by replacing the listener from "change" to "enter". 
+
+###### Unresolved:
+1. Null word display in Medium Tier leaderboard after a round has been played in either Easy or Med tier. Null word display disappears temporarily right after a Med-Tier is played. It also disappears when Med-Tier has been played more than 2 times (this fills up all the 3 rows in leaderboard). If no round or less than 2 rounds have been played in either easy or med - when player toggles between easy & med level via dropdown, Null word displays in 2nd and/or 3rd placement.
+
+2. The highscore for Medium Tier may display null if a player toggles to medium tier after a round is played in easy tier with a score of 0.
 
 
 #### Further Possible Improvements
+- Refactor localstorage setup and ranking & rank display functions - Use objects to store player's information, evaluate and update accordingly. 
+- Make the word array more dynamic where it starts with 10 easy words (first bracket). On the next bracket, slightly more difficult words and so on. 
+- Overhaul scoring system from point system to level-up system. Remove dropdown selection. Let player begin at Level 1 and only after completing Level 1, let player proceed to Level 2 and so on. Only 1 leaderboard to show top 3 levels attained by any player (eg. Level 99). 
+
