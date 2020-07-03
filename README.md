@@ -132,7 +132,11 @@ Link to Game: [Just My Type](https://andicodetrf.github.io/ProjectOne_JustMyType
 ###### Unresolved:
 1. Null word display in Medium Tier leaderboard after a round has been played in either Easy or Med tier. Null word display disappears temporarily right after a Med-Tier is played. It also disappears when Med-Tier has been played more than 2 times (this fills up all the 3 rows in leaderboard). If no round or less than 2 rounds have been played in either easy or med - when player toggles between easy & med level via dropdown, Null word displays in 2nd and/or 3rd placement.
 
-2. The highscore for Medium Tier may display null if a player toggles to medium tier after a round is played in easy tier with a score of 0.
+2. The highscore for Easy & Medium Tier displays null when 
+      - **there are no scores in either yet and**
+        - **player plays medium tier and scores 0** - med tier displays high score as 0 and no record is added to leaderboard
+        - player toggles to easy tier - high score shows null
+        - player toggles back to med tier - high score shows null as well
 
 
 #### Further Possible Improvements
