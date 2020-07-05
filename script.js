@@ -164,7 +164,7 @@ const eThirdGroup = () => {
     if(easyTopScore[2] > 0){
         console.log(easyTopScore[2])
         thirdName.textContent = `${easyTopName[2]}`;
-        thirdScore.textContent = `${easyTopName[2]}`;
+        thirdScore.textContent = `${easyTopScore[2]}`;
     }
 }
 
@@ -172,7 +172,8 @@ const eThirdGroup = () => {
 const eSecondGroup = () => {
     if(easyTopScore[1] > 0){
         secondName.textContent = `${easyTopName[1]}`;
-        secondScore.textContent = `${easyTopName[1]}`;
+        secondScore.textContent = `${easyTopScore[1]}`;
+        
     }
 }
 
