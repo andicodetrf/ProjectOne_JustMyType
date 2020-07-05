@@ -145,6 +145,8 @@ const getPlayerName = () => {
 
 // ------------------------------ START OF LOCALSTORAGE VAR SETUP FOR EASY-TIER ------------------------------------------
 
+let count = 0;
+
 let LSEfirstName = localStorage.getItem('eFPName');
 let LSEfirstScore = localStorage.getItem('eFPScore');
 let LSEsecondName = localStorage.getItem('eSPName') 
@@ -159,33 +161,35 @@ let easyTopScore = [LSEfirstScore, LSEsecondScore, LSEthirdScore]
 //EASYTIER - DISPLAY ON LEADERBOARD
 // ---> display third placing - get from LS
 const eThirdGroup = () => {
-    if(localStorage.getItem('eTPName')){
-        thirdName.textContent = `${localStorage.getItem('eTPName')}`;
-        thirdScore.textContent = `${localStorage.getItem('eTPScore')}`;
+    if(easyTopScore[2] > 0){
+        console.log(easyTopScore[2])
+        thirdName.textContent = `${easyTopName[2]}`;
+        thirdScore.textContent = `${easyTopName[2]}`;
     }
 }
 
-
 // ---> display second placing - get from LS
 const eSecondGroup = () => {
-    if(localStorage.getItem('eSPName')){
-        secondName.textContent = `${localStorage.getItem('eSPName')}`;
-        secondScore.textContent = `${localStorage.getItem('eSPScore')}`;
+    if(easyTopScore[1] > 0){
+        secondName.textContent = `${easyTopName[1]}`;
+        secondScore.textContent = `${easyTopName[1]}`;
     }
 }
 
 // ---> display first placing - get from LS
 const eFirstGroup = () => {
-    if(localStorage.getItem('eFPName')){
-        firstName.textContent = `${localStorage.getItem('eFPName')}`;
-        firstScore.textContent = `${localStorage.getItem('eFPScore')}`;
+    console.log('count in 1stdisplay: ', count)
+    if(easyTopScore[0] > 0){
+        firstName.textContent = `${easyTopName[0]}`;
+        firstScore.textContent = `${easyTopScore[0]}`;
     }
+    count++
 }
 
 // ---> display highscore - get from LS
 const isEasyHighScore = () =>{
-    if(localStorage.getItem('eFPScore')){
-        highScoreDisplay.textContent = localStorage.getItem('eFPScore');
+    if(easyTopScore[0] > 0){
+        highScoreDisplay.textContent = easyTopScore[0];
     }
 }
 
@@ -193,6 +197,7 @@ const isEasyHighScore = () =>{
 function rankingEasy(num, name) {
     
         if (num > easyTopScore[0]){
+            console.log('IF Total Score > ETS[0] FN: ', easyTopScore[0])
             easyTopScore.splice(0, 0, num);
             easyTopName.splice(0, 0, name);
             easyTopScore.pop();
@@ -210,6 +215,10 @@ function rankingEasy(num, name) {
             easyTopName.pop();
         }
 
+
+        console.log('1 ETS:', easyTopScore) // updated due to IF above.
+        console.log('1 LSEF:', LSEfirstScore) // nothing here coz have not set
+
         LSEfirstScore = localStorage.setItem('eFPScore', easyTopScore[0])
         LSEfirstName = localStorage.setItem('eFPName', easyTopName[0])
         LSEsecondScore = localStorage.setItem('eSPScore', easyTopScore[1])
@@ -217,36 +226,20 @@ function rankingEasy(num, name) {
         LSEthirdScore = localStorage.setItem('eTPScore', easyTopScore[2])
         LSEthirdName = localStorage.setItem('eTPName', easyTopName[2])
 
+        console.log('2 ETS:', easyTopScore) // ditto: updated due to IF above.
+        console.log('2 LSEF:', LSEfirstScore) //LSEF has been set (thus not null) but it hasnt been "get" therefore undefined
+
         eFirstGroup();
         eSecondGroup();
         eThirdGroup();
         isEasyHighScore();
 
-        // console.log(easyTopScore);
-        // console.log(easyTopName); 
-        // console.log(localStorage);
+        console.log('3 ETS:', easyTopScore)
+        console.log('3 LSEF:', LSEfirstScore)
+
 
 }
 
-//Function to prevent null from being printed on leaderboard at 1st & 2nd round gameplay; 
-//Also, fix highscoreDisplay from showing null(when first round is 0) generally in both easy/med tier
-const fixEasyTableNull = () =>{
-    if(firstName.textContent == null || firstName.textContent == "null"){
-        firstName.textContent = "";
-        firstScore.textContent = "";
-    }
-    if(secondName.textContent == null || secondName.textContent == "null"){
-        secondName.textContent = "";
-        secondScore.textContent = "";
-    }
-    if(thirdName.textContent == null || thirdName.textContent == "null"){
-        thirdName.textContent = "";
-        thirdScore.textContent = "";
-    }
-    if(highScoreDisplay.textContent == null || highScoreDisplay.textContent == "null"){
-        highScoreDisplay.textContent = 0;
-    }
-}
 
 // ------------------------------ END OF LOCALSTORAGE VAR SETUP FOR EASY-TIER --------------------------------------
 
@@ -266,34 +259,33 @@ let medTopScore = [LSMfirstScore, LSMsecondScore, LSMthirdScore]
 //EASYTIER - DISPLAY ON LEADERBOARD
 // ---> display third placing - get from LS
 const mThirdGroup = () => {
-    if(localStorage.getItem('mTPName')){
-        medThirdName.textContent = `${localStorage.getItem('mTPName')}`;
-        medThirdScore.textContent = `${localStorage.getItem('mTPScore')}`;
+    if(medTopScore[2] > 0){
+        medThirdName.textContent = `${medTopName[2]}`;
+        medThirdScore.textContent = `${medTopScore[2]}`;
     }
 }
 
 // ---> display second placing - get from LS
 const mSecondGroup = () => {
-    if(localStorage.getItem('mSPName')){
-        medSecondName.textContent = `${localStorage.getItem('mSPName')}`;
-        medSecondScore.textContent = `${localStorage.getItem('mSPScore')}`;
+    if(medTopScore[1] > 0){
+        medSecondName.textContent = `${medTopName[1]}`;
+        medSecondScore.textContent = `${medTopScore[1]}`;
     }
 }
 
 // ---> display first placing - get from LS
 const mFirstGroup = () => {
-    // console.log('mfpname ' , localStorage.getItem('mFPName'));
-    if(localStorage.getItem('mFPName')){
-        medFirstName.textContent = `${localStorage.getItem('mFPName')}`;
-        medFirstScore.textContent = `${localStorage.getItem('mFPScore')}`;
+    if(medTopScore[0] > 0){
+        medFirstName.textContent = `${medTopName[0]}`;
+        medFirstScore.textContent = `${medTopScore[0]}`;
     }
 }
 
 
 // ---> display highscore - get from LS
 const isMedHighScore = () =>{
-    if(localStorage.getItem('mFPScore')){
-        highScoreDisplay.textContent = localStorage.getItem('mFPScore');
+    if(medTopScore[0] > 0){
+        highScoreDisplay.textContent = medTopScore[0];
     }
 }
 
@@ -338,24 +330,6 @@ function rankingMed(num, name) {
         // console.log(localStorage);
 }
 
-//Function to prevent null from being printed on leaderboard at 1st & 2nd round gameplay
-//works after playing a round. once player switch to easy and switch back to medium, null shows for all (if no round has been played)
-//unable to resolve this null bug
-const fixMedTableNull = () =>{
-
-    if(medFirstName.textContent == null || medFirstName.textContent == "null"){
-        medFirstName.textContent = "";
-        medFirstScore.textContent = "";
-    }
-    if(medSecondName.textContent == null || medSecondName.textContent == "null"){
-        medSecondName.textContent = "";
-        medSecondScore.textContent = "";
-    }
-    if(medThirdName.textContent == null || medThirdName.textContent == "null"){
-        medThirdName.textContent = "";
-        medThirdScore.textContent = "";
-    }
-}
 
 // ------------------------------ END OF LOCALSTORAGE VAR SETUP FOR MED-TIER --------------------------------------
 
@@ -504,8 +478,6 @@ const displayResult = () => {
     } else {
         rankingMed(totalScore, player);
     }
-    fixEasyTableNull();
-    fixMedTableNull();
 }
 
 //FN TO FIRE RESULT MODAL 
@@ -574,7 +546,6 @@ eFirstGroup();
 eSecondGroup();
 eThirdGroup();
 isEasyHighScore();
-fixEasyTableNull();
 
 //---------------------------------------------- # EVENT LISTENERS # ------------------------------------------------------------
 
@@ -591,7 +562,6 @@ level.addEventListener('change', () =>{
         isEasyHighScore();
       
     } else if(level.value === "medium"){
-        fixMedTableNull();
         highScoreDisplay.textContent = 0;
         resetTotalScore();
         easyboard.style.display = "none";

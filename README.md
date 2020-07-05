@@ -129,7 +129,7 @@ Link to Game: [Just My Type](https://andicodetrf.github.io/ProjectOne_JustMyType
 5. Game starts if player typed in some text name and closes the modal box via close (x) button (clicking x is supposed to cancel the game).
     - Resolved: The original input-box in modal box was set to listen for "change". The problem was resolved by replacing the listener from "change" to "enter". 
 
-###### Unresolved:
+###### Unresolved: [04/07/2020 - Resolved by using array data for display functions conditions. FixTableNull functions no longer needed therefore removed.]
 1. Null word display in Medium Tier leaderboard after a round has been played in either Easy or Med tier. Null word display disappears temporarily right after a Med-Tier is played. It also disappears when Med-Tier has been played more than 2 times (this fills up all the 3 rows in leaderboard). If no round or less than 2 rounds have been played in either easy or med - when player toggles between easy & med level via dropdown, Null word displays in 2nd and/or 3rd placement.
 
 2. The highscore for Easy & Medium Tier displays null when 
